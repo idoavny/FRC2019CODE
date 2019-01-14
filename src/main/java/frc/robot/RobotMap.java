@@ -19,6 +19,7 @@ public static int MAGLOL_MOTOR1 = 0;
 //              HatchPanel
 public static int HPsolonoid1=21;
 public static int HPsolonoid2=22;
+public static int HPsolonoid3=23;
 
 //              Right JoyStick Buttons
 public static int MaglolForword = 2;
