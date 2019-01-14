@@ -13,9 +13,11 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomusCommand;
+import frc.robot.commands.HatchCommad;
 import frc.robot.subsystems.Autonomus;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.HatchPanel;
 import frc.robot.subsystems.Maglol;
 
 
@@ -24,14 +26,22 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static Elevator ELEV;
   public static Maglol maglol;
+<<<<<<< HEAD
   public static DriveTrain drive;
+=======
+  public static HatchPanel hatchPanel;
+>>>>>>> b2322d63b1bafc0a5eb38eb44d5a8fd3b87e5129
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
+<<<<<<< HEAD
     drive = new DriveTrain();
+=======
+    hatchPanel = new HatchPanel();
+>>>>>>> b2322d63b1bafc0a5eb38eb44d5a8fd3b87e5129
     maglol = new Maglol();
     m_oi = new OI();
     ELEV = new Elevator();
