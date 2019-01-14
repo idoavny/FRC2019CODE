@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomusCommand;
 import frc.robot.subsystems.Autonomus;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Maglol;
 
@@ -23,12 +24,14 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static Elevator ELEV;
   public static Maglol maglol;
+  public static DriveTrain drive;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   @Override
   public void robotInit() {
+    drive = new DriveTrain();
     maglol = new Maglol();
     m_oi = new OI();
     ELEV = new Elevator();

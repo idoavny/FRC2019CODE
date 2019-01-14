@@ -16,8 +16,8 @@ import frc.robot.commands.MaglolCommand;
  */
 public class OI {
   //            JoySticks
-  Joystick rightJoy = new Joystick(0);
-  Joystick leftJoy = new Joystick(1);
+  public Joystick rightJoy = new Joystick(0);
+  public Joystick leftJoy = new Joystick(1);
 
 //              HatchPanel buttons
 Button RButton1 = new JoystickButton(rightJoy, 1);
