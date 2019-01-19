@@ -9,59 +9,45 @@ package frc.robot;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ElevatorCommand;
+import frc.robot.commands.HatchCommad;
 import frc.robot.commands.MaglolCommand;
-/**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
- */
-public class OI {
-  //            JoySticks
+import frc.robot.commands.ShooterCommand;
+
+public class OI 
+{
+//              JoySticks
   public Joystick rightJoy = new Joystick(0);
   public Joystick leftJoy = new Joystick(1);
+  public Joystick ButtonJoy = new Joystick(2);
+
+//              Shotter buttons
+Button ShooterButtonForword = new JoystickButton(leftJoy, 2);
+Button ShooterButtonReverse = new JoystickButton(leftJoy, 3);
 
 //              HatchPanel buttons
-Button RButton1 = new JoystickButton(rightJoy, 1);
+Button BButton1 = new JoystickButton(ButtonJoy, 1);
+Button BButton2 = new JoystickButton(ButtonJoy, 2);
+Button BButton3 = new JoystickButton(ButtonJoy, 3);
+
+
+//              Elevator buttons
+Button ElevatorPosition0 = new JoystickButton(rightJoy, 1);
+
 
 //              Maglol Buttons
 Button MaglolForword = new JoystickButton(rightJoy, 2);
 Button MaglolReverse = new JoystickButton(rightJoy, 3);
 
-public OI(){
+public OI()
+{
+ElevatorPosition0.whenPressed(new ElevatorCommand(1, "Port", "UP"));
 MaglolForword.whileHeld(new MaglolCommand(false));
 MaglolReverse.whileHeld(new MaglolCommand(true));
+ShooterButtonForword.whileHeld(new ShooterCommand(false));
+ShooterButtonReverse.whileHeld(new ShooterCommand(true));
+BButton1.whenPressed(new HatchCommad(1));
+BButton2.whenPressed(new HatchCommad(2));
+BButton3.whenPressed(new HatchCommad(3));
 }
-
-
-
-
-
-
-
-
-  //// CREATING BUTTONS
-  // One type of button is a joystick button which is any button on a
-  //// joystick.
-  // You create one by telling it which joystick it's on and which button
-  // number it is.
-  // Joystick stick = new Joystick(port);
-  // Button buttun = new JoystickButton(stick, buttonNumber);
-
-  // There are a few additional built in buttons you can use. Additionally,
-  // by subclassing Button you can create custom triggers and bind those to
-  // commands the same as any other Button.  
-  //// TRIGGERING COMMANDS WITH BUTTONS
-  // Once you have a button, it's trivial to bind it to a button in one of
-  // three ways:
-
-  // Start the command when the button is pressed and let it run the command
-  // until it is finished as determined by it's isFinished method.
-  // button.whenPressed(new ExampleCommand());
-
-  // Run the command while the button is being held down and interrupt it once
-  // the button is released.
-  // button.whileHeld(new ExampleCommand());
-
-  // Start the command when the button is released and let it run the command
-  // until it is finished as determined by it's isFinished method.
-  // button.whenReleased(new ExampleCommand());
 }

@@ -7,26 +7,26 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 
-public class Maglol extends Subsystem 
+public class Shooter extends Subsystem 
 {
-  Talon motor1 = new Talon(RobotMap.MAGLOL_MOTOR1);
+ TalonSRX ShooterMotor = new TalonSRX(RobotMap.Shooter_Motor);
 
-  public void setSpeed(Double speed)
-  {
-  motor1.set(speed);
-  }
-
+ public void SetSpeed(double speed)
+ {
+  ShooterMotor.set(ControlMode.PercentOutput, speed);
+ }
 
 
   @Override
   public void initDefaultCommand() 
   {
-   
+    
   }
 }

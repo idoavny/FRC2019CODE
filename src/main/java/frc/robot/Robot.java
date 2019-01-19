@@ -7,44 +7,50 @@
 
 package frc.robot;
 
+
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomusCommand;
-import frc.robot.commands.HatchCommad;
 import frc.robot.subsystems.Autonomus;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.HatchPanel;
 import frc.robot.subsystems.Maglol;
 
+import frc.robot.subsystems.Shooter;
+//testing branches
 
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
   public static Autonomus m_subsystem = new Autonomus();
   public static OI m_oi;
-  public static Elevator ELEV;
+  public static Elevator elevator;
   public static Maglol maglol;
-<<<<<<< HEAD
   public static DriveTrain drive;
-=======
   public static HatchPanel hatchPanel;
->>>>>>> b2322d63b1bafc0a5eb38eb44d5a8fd3b87e5129
 
+  public static Shooter Shooter;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   @Override
-  public void robotInit() {
-<<<<<<< HEAD
+  public void robotInit() 
+  {
     drive = new DriveTrain();
-=======
     hatchPanel = new HatchPanel();
->>>>>>> b2322d63b1bafc0a5eb38eb44d5a8fd3b87e5129
     maglol = new Maglol();
     m_oi = new OI();
-    ELEV = new Elevator();
+    elevator = new Elevator();
+    Shooter= new Shooter();
+    
+   
+
+
+    CameraServer.getInstance().startAutomaticCapture();
 
     m_chooser.setDefaultOption("Default Auto", new AutonomusCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
@@ -53,12 +59,14 @@ public class Robot extends TimedRobot {
 
 
   @Override
-  public void robotPeriodic() {
+  public void robotPeriodic()
+  {
   }
 
  
   @Override
-  public void disabledInit() {
+  public void disabledInit()
+  {
   }
 
   @Override
@@ -68,33 +76,40 @@ public class Robot extends TimedRobot {
 
 
   @Override
-  public void autonomousInit() {
+  public void autonomousInit() 
+  {
     m_autonomousCommand = m_chooser.getSelected();
 
     
-    if (m_autonomousCommand != null) {
+    if (m_autonomousCommand != null) 
+    {
       m_autonomousCommand.start();
     }
   }
 
   @Override
-  public void autonomousPeriodic() {
+  public void autonomousPeriodic() 
+  {
     Scheduler.getInstance().run();
   }
 
   @Override
   public void teleopInit() {
-    if (m_autonomousCommand != null) {
+    if (m_autonomousCommand != null) 
+    {
       m_autonomousCommand.cancel();
     }
   }
 
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic() 
+  {
     Scheduler.getInstance().run();
   }
 
   @Override
-  public void testPeriodic() {
+  public void testPeriodic() 
+  {
+    
   }
 }

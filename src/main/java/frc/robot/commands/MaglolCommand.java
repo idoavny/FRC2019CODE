@@ -10,44 +10,53 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class MaglolCommand extends Command {
+public class MaglolCommand extends Command 
+{
   boolean isReverse;
-  public MaglolCommand() {
+  public MaglolCommand() 
+  {
   
   }
-  public MaglolCommand(boolean isReverse) {
+  
+  public MaglolCommand(boolean isReverse) 
+  {
   this.isReverse = isReverse;
   }
 
   @Override
-  protected void initialize() {
+  protected void initialize() 
+  {
     setTimeout(1);
-    }
+  }
 
   @Override
-  protected void execute() {
-    if(isReverse){
+  protected void execute() 
+  {
+    if(isReverse)
+    {
       Robot.maglol.setSpeed(-0.5);
     }
-   else{
+   else
+    {
       Robot.maglol.setSpeed(0.5);
     }   
   }
 
   @Override
-  protected boolean isFinished() {
+  protected boolean isFinished() 
+  {
     return false;
   }
 
-  // Called once after isFinished returns true
   @Override
-  protected void end() {
+  protected void end() 
+  {
+
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
-  protected void interrupted() {
+  protected void interrupted() 
+  {
     Robot.maglol.setSpeed(0.0); 
   }
 }

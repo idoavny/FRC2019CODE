@@ -8,63 +8,112 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Calculations;
 import frc.robot.Robot;
 
-public class ElevatorCommand extends Command {
+public class ElevatorCommand extends Command 
+{
+  String PortOrHatch;
+  double Setpoint;
+  boolean disable;
   int mode = 0;
+  double DistancePortsFoot = 2;
+  double DistancePortsInch = 4;
+  
+  boolean limitswitch = false;
 
-  public ElevatorCommand() {
-    requires(Robot.ELEV);
+  public ElevatorCommand() 
+  {
+    requires(Robot.elevator);
   }
-
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
-    
-    Robot.ELEV.getMode(mode);
-  }
-// ron, this is from all of the programing team,  after you leave please fix your errors because it's anoyying, STOP RETARDATION. thank you. !!README!!
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    switch(mode)
-    {
-      case 0:
-        
-        break;
-      case 1:
-        
-        break;
-      case 2:
-        
-        break;
-      case 3:
-        
-        break;
-      case 4:
-        
-        break;
-      case 5:
-        
-        break;
+  public ElevatorCommand(int mode, String PortOrHatch,String UpOrDown) 
+  {
+    this.mode = mode;
+    this.PortOrHatch = PortOrHatch;
+    if(UpOrDown == "Up"){
+      Robot.elevator.setKp(0);
+      Robot.elevator.setKi(0);
+      Robot.elevator.setKd(0);
+    }
+    if(UpOrDown == "Down"){
+      Robot.elevator.setKp(0);
+      Robot.elevator.setKi(0);
+      Robot.elevator.setKd(0);
     }
   }
-
-  // Make this return true when this Command no longer needs to run execute()
-  @Override
-  protected boolean isFinished() {
-    return false;
+  public ElevatorCommand(boolean disable) 
+  {
+    this.disable = disable;
   }
 
-  // Called once after isFinished returns true
   @Override
-  protected void end() {
+  protected void initialize() 
+  {
+    switch(PortOrHatch){
+      case "Port":
+        switch(mode) 
+        {
+          case 1:
+          Setpoint = Calculations.FootAndInchToMeter(2, 3.5);
+          break;
+
+          case 2:
+          Setpoint = Calculations.FootAndInchToMeter(4,7.5);          
+          break;
+
+          case 3:
+          Setpoint = Calculations.FootAndInchToMeter(6,11.5);
+          break;
+        }
+    break;
+      case "Hatch":
+        switch(mode) 
+        {
+          case 1:
+          Setpoint = Calculations.FootAndInchToMeter(1, 7);
+          break;
+
+          case 2:
+          Setpoint = Calculations.FootAndInchToMeter(3,11);          
+          break;
+
+          case 3:
+          Setpoint = Calculations.FootAndInchToMeter(6,3);
+          break;
+        }
+    break;
+    }
+    Robot.elevator.PIDsetSetpoint(Setpoint);
+  }
+  @Override
+  protected void execute() 
+  {
+    limitswitch = Robot.elevator.limitSwitch();
+    if( limitswitch == true) 
+    {
+      Robot.elevator.SetSpeed(0);
+      Robot.elevator.PIDsetSetpoint(0.);
+      Robot.elevator.enc.reset();
+    }
+    Robot.elevator.PIDEnableOrDisable(true);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
-  protected void interrupted() {
-    Robot.ELEV.bringSallyDown(0,0);
+  protected boolean isFinished() 
+  {
+    return disable;
+  }
+
+  @Override
+  protected void end() 
+  {
+    while(Setpoint > 0)
+    Robot.elevator.SetSpeed(-0.4);
+  }
+
+  @Override
+  protected void interrupted() 
+  {
+    Robot.elevator.SetSpeed(0);
   }
 }

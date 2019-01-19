@@ -13,24 +13,35 @@ public class RobotMap {
 public static int LJoyport = 1;
 public static int RJoyport = 2;
 
+//              Drive
+public static int RightMotor = 3;
+public static int RearRightMotor = 1;
+public static int LeftMotor = 2;
+public static int RearLeftMotor = 0;
+
 //              Maglol
-public static int MAGLOL_MOTOR1 = 0;
+public static int MAGLOL_MOTOR1 = 4;
+
+//              Shooter
+public static int Shooter_Motor = 5; 
 
 //              HatchPanel
-public static int HPsolonoid1=21;
-public static int HPsolonoid2=22;
-public static int HPsolonoid3=23;
-
+public static int HPsolonoid1 = 0;
+public static int HPsolonoid2 = 1;
+public static int HPsolonoid3 = 2;
+public static int HPpotentiometer = 5;
+public static int HPmotor = 6;
 //              Right JoyStick Buttons
-public static int MaglolForword = 2;
-public static int MaglolReverse = 3;
+public static int MaglolForwordButton = 2;
+public static int MaglolReverseButton = 3;
 
 //              Left JoyStick Buttons
 
 
-
-
-
+//              Elevator
+public static int RightSally = 1;
+public static int LeftSally = 2;
+public static int LimitSwitch = 1;
 
 
 }

@@ -7,51 +7,77 @@
 
 package frc.robot.commands;
 
-import java.util.concurrent.DelayQueue;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.HatchPanel;
 
-public class HatchCommad extends Command {
-  public HatchCommad() {
-
-    // eg. requires(chassis);
+public class HatchCommad extends Command 
+{
+  int case1;
+  public HatchCommad() 
+  {
+    requires(Robot.hatchPanel);
   }
 
-  // Called just before this Command runs the first time
-  @Override
-  protected void initialize() {
+  public HatchCommad(int case1)
+  {
+  this.case1 = case1;
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
-    Robot.hatchPanel.SetSelenoids(true,3);
-    Timer.delay(0.5);
-    Robot.hatchPanel.SetSelenoids(false,3);
-
+  protected void initialize() 
+  {
 
   }
 
-
-
-  // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  protected void execute() 
+  {
+    switch(case1)
+    {
+      case 1:     
+        Robot.hatchPanel.SetSelenoids(true);
+        Timer.delay(0.2);
+        Robot.hatchPanel.SetSelenoids(false);
+      break;
+
+      case 2:
+        double degrees1 = Robot.hatchPanel.potentiometer.get();
+        while (degrees1<90)
+        {
+        Robot.hatchPanel.SetTalonSpeed(0.5);
+        degrees1 = Robot.hatchPanel.potentiometer.get();
+        }
+      break;
+
+      case 3:
+        double degrees2 = Robot.hatchPanel.potentiometer.get();
+        while (degrees2>1) //this is because I dont want to break the motor
+        {
+        Robot.hatchPanel.SetTalonSpeed(-0.5);
+        degrees2 = Robot.hatchPanel.potentiometer.get();
+        }
+      break;
+    }
+
+  }
+
+  @Override
+  protected boolean isFinished() 
+  {
     return false;
   }
 
-  // Called once after isFinished returns true
   @Override
-  protected void end() {
+  protected void end() 
+  {
 
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
-  protected void interrupted() {
+  protected void interrupted() 
+  {
+    
   }
 }

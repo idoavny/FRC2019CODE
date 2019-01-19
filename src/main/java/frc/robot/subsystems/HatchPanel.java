@@ -7,37 +7,44 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import frc.robot.RobotMap;
 
-/**
- * Add your docs here.
- */
-public class HatchPanel extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+
+public class HatchPanel extends Subsystem 
+{
+  public Potentiometer potentiometer = new AnalogPotentiometer(RobotMap.HPpotentiometer, 360, 0);
+  TalonSRX HPmotor = new TalonSRX(RobotMap.HPmotor);
+
   Solenoid solenoid1 = new Solenoid(RobotMap.HPsolonoid1);
   Solenoid solenoid2 = new Solenoid(RobotMap.HPsolonoid2);
   Solenoid solenoid3 = new Solenoid(RobotMap.HPsolonoid3);
-  public void SetSelenoids(boolean mode,int num)
+
+  public void SetTalonSpeed(double speed)
   {
-  switch(num)
-    {
-    case 1:solenoid1.set(mode);   //one time
-    break;
-    case 2:solenoid1.set(mode); solenoid2.set(mode); //two times
-    break;
-    case 3:solenoid1.set(mode); solenoid2.set(mode); solenoid1.set(mode); //three times
-    break;
-    }  
+    HPmotor.set(ControlMode.PercentOutput, speed);
   }
+  
+  
+  
+  public void SetSelenoids(boolean mode)
+  {
+    solenoid1.set(mode);
+    solenoid2.set(mode);
+    solenoid3.set(mode);
+  }  
+  
  
   
   @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+  public void initDefaultCommand() 
+  {
+    
   }
 }

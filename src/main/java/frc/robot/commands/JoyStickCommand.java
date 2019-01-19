@@ -10,40 +10,41 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class JoyStickCommand extends Command {
-  public JoyStickCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class JoyStickCommand extends Command 
+{
+  public JoyStickCommand() 
+  {
     requires(Robot.drive);
   }
 
-  // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
+  protected void initialize() 
+  {
+
 
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
-    Robot.drive.setTankSpeed(Robot.m_oi.rightJoy.getY(),Robot.m_oi.leftJoy.getY()); 
+  protected void execute()
+  {
+    Robot.drive.setTankSpeed(-Robot.m_oi.rightJoy.getY(),Robot.m_oi.leftJoy.getY()); 
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
-  protected boolean isFinished() {
+  protected boolean isFinished()
+  {
     return false;
   }
 
-  // Called once after isFinished returns true
   @Override
-  protected void end() {
+  protected void end()
+  {
+
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
-  protected void interrupted() {
+  protected void interrupted()
+  {
     Robot.drive.setTankSpeed(0,0); 
   }
 }

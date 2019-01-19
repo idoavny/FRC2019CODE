@@ -5,28 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot;
 
-
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.RobotMap;
-
-
-public class Maglol extends Subsystem 
+/**
+ * Add your docs here.
+ */
+public class Calculations
 {
-  Talon motor1 = new Talon(RobotMap.MAGLOL_MOTOR1);
+    public static double MeterPerPulse(int WheelDIameter, int EncoderResolution)
+    {
+        return(((WheelDIameter*Math.PI*2.54)/100)/EncoderResolution);
+    }
 
-  public void setSpeed(Double speed)
-  {
-  motor1.set(speed);
-  }
-
-
-
-  @Override
-  public void initDefaultCommand() 
-  {
-   
-  }
+    public static double FootAndInchToMeter(int Foot,double Inch)
+    {
+        return (((Foot*12)+Inch)*2.54)/100;
+    }
 }

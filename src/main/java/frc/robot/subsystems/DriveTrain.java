@@ -13,28 +13,39 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.RobotMap;
+import frc.robot.commands.JoyStickCommand;
 
-/**
- * Add your docs here.
- */
-public class DriveTrain extends Subsystem {
-  Encoder encoder = new Encoder(0, 1, false, EncodingType.k1X);
-Talon rightMotor1 = new Talon(0);
-Talon rightMotor2 = new Talon(1);
-SpeedControllerGroup rights = new SpeedControllerGroup(rightMotor1, rightMotor2);
 
-Talon leftMotor1 = new Talon(2);
-Talon leftMotor2 = new Talon(3);
-SpeedControllerGroup lefts = new SpeedControllerGroup(leftMotor1, leftMotor2);
+public class DriveTrain extends Subsystem 
+{
+  Encoder encoder = new Encoder(2, 3, false, EncodingType.k1X);
+  Talon rightMotor1 = new Talon(RobotMap.RightMotor);
+  Talon rightMotor2 = new Talon(RobotMap.RearRightMotor);
+  SpeedControllerGroup rights = new SpeedControllerGroup(rightMotor1, rightMotor2);
+  
+  Talon leftMotor1 = new Talon(RobotMap.LeftMotor);
+  Talon leftMotor2 = new Talon(RobotMap.RearLeftMotor);
+  SpeedControllerGroup lefts = new SpeedControllerGroup(leftMotor1, leftMotor2);
+  
+  DifferentialDrive drive = new DifferentialDrive(lefts,rights);
+  //DifferentialDrive drive = new DifferentialDrive(leftMotor1,rightMotor1);
+  
+  public DriveTrain()
+  {
+    drive.setDeadband(0);
+    
+  }
 
-DifferentialDrive drive = new DifferentialDrive(lefts,rights);
 
-public void setTankSpeed(double RightSpeed, double LeftSpeed){
-drive.tankDrive(LeftSpeed, RightSpeed);;
-}
+  public void setTankSpeed(double RightSpeed, double LeftSpeed)
+  {
+  drive.tankDrive(LeftSpeed, RightSpeed);;
+  }
 
   @Override
-  public void initDefaultCommand() {
-
+  public void initDefaultCommand()
+  {
+    setDefaultCommand(new JoyStickCommand());
   }
 }
