@@ -8,8 +8,11 @@
 package frc.robot.commands;
 
 
+
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class HatchCommad extends Command 
@@ -36,27 +39,33 @@ public class HatchCommad extends Command
   {
     switch(case1)
     {
-      case 1:     
+      default:     // this is useless but i did it anyway cuz you asked me to, this makes the robot drop a hatchpanel
+      Robot.hatchPanel.SetSelenoids(true);
+      Timer.delay(Constants.putHPdelay);
+      Robot.hatchPanel.SetSelenoids(false);
+    break; 
+
+      case 1:     //drop a hatchpanel
         Robot.hatchPanel.SetSelenoids(true);
-        Timer.delay(0.2);
+        Timer.delay(Constants.putHPdelay);
         Robot.hatchPanel.SetSelenoids(false);
       break;
 
-      case 2:
+      case 2:     // hatchpanel mover goes 90 degrees (from 0)
         double degrees1 = Robot.hatchPanel.potentiometer.get();
-        while (degrees1<90)
+        while (degrees1<Constants.hatchpanel90deg)
         {
-        Robot.hatchPanel.SetTalonSpeed(0.5);
+        Robot.hatchPanel.SetTalonSpeed(Constants.turningspeed);
         degrees1 = Robot.hatchPanel.potentiometer.get();
         }
       break;
 
-      case 3:
-        double degrees2 = Robot.hatchPanel.potentiometer.get();
-        while (degrees2>1) //this is because I dont want to break the motor
+      case 3:     // hatchpanel mover goes -90 degrees (from 90)
+       degrees1 = Robot.hatchPanel.potentiometer.get();
+        while (degrees1>Constants.hatchpanel0deg) //this is because I dont want to break the motor
         {
-        Robot.hatchPanel.SetTalonSpeed(-0.5);
-        degrees2 = Robot.hatchPanel.potentiometer.get();
+        Robot.hatchPanel.SetTalonSpeed(-Constants.turningspeed);
+        degrees1 = Robot.hatchPanel.potentiometer.get();
         }
       break;
     }

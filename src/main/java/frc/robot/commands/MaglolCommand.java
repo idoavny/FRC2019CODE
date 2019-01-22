@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -26,7 +28,7 @@ public class MaglolCommand extends Command
   @Override
   protected void initialize() 
   {
-    setTimeout(1);
+    setTimeout(1); //TODO put this in constants 
   }
 
   @Override
@@ -34,11 +36,11 @@ public class MaglolCommand extends Command
   {
     if(isReverse)
     {
-      Robot.maglol.setSpeed(-0.5);
+      Robot.maglol.setSpeed(-Constants.MagSpeed);
     }
    else
     {
-      Robot.maglol.setSpeed(0.5);
+      Robot.maglol.setSpeed(Constants.MagSpeed);
     }   
   }
 
@@ -57,6 +59,6 @@ public class MaglolCommand extends Command
   @Override
   protected void interrupted() 
   {
-    Robot.maglol.setSpeed(0.0); 
+    Robot.maglol.setSpeed(Constants.MagSpeedinterrapted); 
   }
 }

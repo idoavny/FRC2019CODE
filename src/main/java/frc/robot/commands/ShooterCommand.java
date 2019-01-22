@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -33,11 +33,11 @@ public class ShooterCommand extends Command
   {
    if(isReverse)
     {
-      Robot.Shooter.SetSpeed(-0.5);
+      Robot.Shooter.SetSpeed(-Constants.ShooterSpeed);
     }
    else
     {
-      Robot.Shooter.SetSpeed(0.5);
+      Robot.Shooter.SetSpeed(Constants.ShooterSpeed);
     }   
   }
   
@@ -57,6 +57,6 @@ public class ShooterCommand extends Command
   @Override
   protected void interrupted()
   {
-    Robot.Shooter.SetSpeed(0);
+    Robot.Shooter.SetSpeed(0); //TODO dosent seem right
   }
 }

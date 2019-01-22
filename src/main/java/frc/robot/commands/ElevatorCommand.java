@@ -10,7 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Calculations;
 import frc.robot.Robot;
-
+// TODO Put all of thoose numbers in constants!
 public class ElevatorCommand extends Command 
 {
   String PortOrHatch;
