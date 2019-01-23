@@ -21,6 +21,7 @@ public static int RearLeftMotor = 0;
 
 //              Maglol
 public static int MAGLOL_MOTOR1 = 4;
+public static int MAGLOL_LIMIT_SWITCH = 2;
 
 //              Shooter
 public static int Shooter_Motor = 5; 

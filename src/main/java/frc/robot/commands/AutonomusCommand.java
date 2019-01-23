@@ -10,7 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-
+/**** 
+ Empty Autonomus command to add an empty autonmus choice
+  ****/
 public class AutonomusCommand extends Command 
 {
   public AutonomusCommand() 

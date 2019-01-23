@@ -20,16 +20,16 @@ import frc.robot.Calculations;
 
 public class Elevator extends Subsystem 
 {
-  double Kp;
-  double Ki;
-  double Kd;
+  private double Kp;
+  private double Ki;
+  private double Kd;
 
   public Encoder enc = new Encoder(0, 1, false, EncodingType.k1X);
 
-  PIDController pid  = new PIDController(Kp, Ki, Kd, enc,(speed) -> SetSpeed(speed)); 
-  DigitalInput LimitSwitch = new DigitalInput(5);
-  TalonSRX RightSally = new TalonSRX(1);
-  TalonSRX LeftSally = new TalonSRX(2);
+  private PIDController pid  = new PIDController(Kp, Ki, Kd, enc,(speed) -> SetSpeed(speed)); 
+  private DigitalInput LimitSwitch = new DigitalInput(5);
+  private TalonSRX RightSally = new TalonSRX(1);
+  private TalonSRX LeftSally = new TalonSRX(2);
 
   public Elevator()
   {

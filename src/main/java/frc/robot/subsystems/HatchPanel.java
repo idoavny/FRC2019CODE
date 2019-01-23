@@ -20,11 +20,11 @@ import frc.robot.RobotMap;
 public class HatchPanel extends Subsystem 
 {
   public Potentiometer potentiometer = new AnalogPotentiometer(RobotMap.HPpotentiometer, 360, 0);
-  TalonSRX HPmotor = new TalonSRX(RobotMap.HPmotor);
+  private TalonSRX HPmotor = new TalonSRX(RobotMap.HPmotor);
 
-  Solenoid solenoid1 = new Solenoid(RobotMap.HPsolonoid1);
-  Solenoid solenoid2 = new Solenoid(RobotMap.HPsolonoid2);
-  Solenoid solenoid3 = new Solenoid(RobotMap.HPsolonoid3);
+  private Solenoid solenoid1 = new Solenoid(RobotMap.HPsolonoid1);
+  private Solenoid solenoid2 = new Solenoid(RobotMap.HPsolonoid2);
+  private Solenoid solenoid3 = new Solenoid(RobotMap.HPsolonoid3);
 
   public void SetTalonSpeed(double speed)
   {

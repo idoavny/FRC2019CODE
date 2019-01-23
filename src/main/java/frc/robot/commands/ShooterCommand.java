@@ -12,13 +12,14 @@ import frc.robot.Robot;
 
 public class ShooterCommand extends Command 
 {
-  boolean isReverse;
+  private boolean isReverse;
   public ShooterCommand() 
   {
     requires(Robot.Shooter);
   }
   public ShooterCommand(boolean isReverse) 
   {
+    requires(Robot.Shooter);
     this.isReverse = isReverse;
   }
 

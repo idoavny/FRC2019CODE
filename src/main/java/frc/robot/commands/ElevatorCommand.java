@@ -13,12 +13,12 @@ import frc.robot.Robot;
 // TODO Put all of thoose numbers in constants!
 public class ElevatorCommand extends Command 
 {
-  String PortOrHatch;
-  double Setpoint;
-  boolean disable;
-  int mode = 0;
-  double DistancePortsFoot = 2;
-  double DistancePortsInch = 4;
+ private String PortOrHatch;
+ private double Setpoint;
+ private boolean disable;
+ private int mode = 0;
+ private double DistancePortsFoot = 2;
+ private double DistancePortsInch = 4;
   
   boolean limitswitch = false;
 
@@ -28,6 +28,7 @@ public class ElevatorCommand extends Command
   }
   public ElevatorCommand(int mode, String PortOrHatch,String UpOrDown) 
   {
+    requires(Robot.elevator);
     this.mode = mode;
     this.PortOrHatch = PortOrHatch;
     if(UpOrDown == "Up"){
@@ -43,6 +44,7 @@ public class ElevatorCommand extends Command
   }
   public ElevatorCommand(boolean disable) 
   {
+    requires(Robot.elevator);
     this.disable = disable;
   }
 

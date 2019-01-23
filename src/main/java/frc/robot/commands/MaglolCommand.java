@@ -14,10 +14,10 @@ import frc.robot.Robot;
 
 public class MaglolCommand extends Command 
 {
-  boolean isReverse;
+  private boolean isReverse;
   public MaglolCommand() 
   {
-  
+    requires(Robot.maglol);
   }
   
   public MaglolCommand(boolean isReverse) 
@@ -28,7 +28,7 @@ public class MaglolCommand extends Command
   @Override
   protected void initialize() 
   {
-    setTimeout(1); //TODO put this in constants 
+    setTimeout(Constants.MagTimeOut); //TODO put this in constants 
   }
 
   @Override
