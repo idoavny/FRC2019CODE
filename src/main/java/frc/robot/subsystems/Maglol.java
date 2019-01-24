@@ -28,15 +28,27 @@ public class Maglol extends Subsystem
   private Talon motor1 = new Talon(RobotMap.MAGLOL_MOTOR1);
   private DigitalInput LimitSwitch = new DigitalInput(RobotMap.MAGLOL_LIMIT_SWITCH);
 
-  public boolean isPressed(){
+  public boolean isPressed()
+  {
     return LimitSwitch.get();
   }
-  public void setSpeed(Double speed)
+
+  public void setSpeed(double speed)
   {
-  motor1.set(speed);
+    motor1.set(speed);
   }
 
-
+  public void setSolenoid(boolean activate)
+  {
+    if(activate == true) {
+      solenoid1.set(true);
+      solenoid2.set(true);
+    }
+    else {
+      solenoid1.set(false);
+      solenoid2.set(false);
+    }
+  }
 
   @Override
   public void initDefaultCommand() 

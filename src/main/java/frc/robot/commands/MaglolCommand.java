@@ -14,34 +14,29 @@ import frc.robot.Robot;
 
 public class MaglolCommand extends Command 
 {
-  private boolean isReverse;
+  private boolean activate;
+
   public MaglolCommand() 
   {
     requires(Robot.maglol);
   }
   
-  public MaglolCommand(boolean isReverse) 
+  public MaglolCommand(boolean activate) 
   {
-  this.isReverse = isReverse;
+    this.activate = activate;
   }
 
   @Override
   protected void initialize() 
   {
-    setTimeout(Constants.MagTimeOut); //TODO put this in constants 
+    setTimeout(Constants.MagTimeOut);
   }
 
   @Override
   protected void execute() 
   {
-    if(isReverse)
-    {
-      Robot.maglol.setSpeed(-Constants.MagSpeed);
-    }
-   else
-    {
-      Robot.maglol.setSpeed(Constants.MagSpeed);
-    }   
+    Robot.maglol.setSolenoid(activate);
+    Robot.maglol.setSpeed(Constants.MagSpeed);
   }
 
   @Override
@@ -59,6 +54,7 @@ public class MaglolCommand extends Command
   @Override
   protected void interrupted() 
   {
-    Robot.maglol.setSpeed(Constants.MagSpeedinterrapted); 
+    Robot.maglol.setSolenoid(!activate);
+    Robot.maglol.setSpeed(-Constants.MagSpeed);
   }
 }

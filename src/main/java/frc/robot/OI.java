@@ -16,38 +16,34 @@ import frc.robot.commands.ShooterCommand;
 
 public class OI 
 {
-//              JoySticks
+  //              JoySticks
   public Joystick rightJoy = new Joystick(0);
   public Joystick leftJoy = new Joystick(1);
   public Joystick ButtonJoy = new Joystick(2);
 
-//              Shotter buttons
-Button ShooterButtonForword = new JoystickButton(leftJoy, 2);
-Button ShooterButtonReverse = new JoystickButton(leftJoy, 3);
+  //              Shotter buttons
+  Button ShooterButton = new JoystickButton(leftJoy, 2);
 
-//              HatchPanel buttons
-Button BButton1 = new JoystickButton(ButtonJoy, 1);
-Button BButton2 = new JoystickButton(ButtonJoy, 2);
-Button BButton3 = new JoystickButton(ButtonJoy, 3);
-
-
-//              Elevator buttons
-Button ElevatorPosition0 = new JoystickButton(rightJoy, 1);
+  //              HatchPanel buttons
+  Button BButton1 = new JoystickButton(ButtonJoy, 1);
+  Button BButton2 = new JoystickButton(ButtonJoy, 2);
+  Button BButton3 = new JoystickButton(ButtonJoy, 3);
 
 
-//              Maglol Buttons
-Button MaglolForword = new JoystickButton(rightJoy, 2);
-Button MaglolReverse = new JoystickButton(rightJoy, 3);
+  //              Elevator buttons
+  Button ElevatorPosition0 = new JoystickButton(rightJoy, 1);
 
-public OI()
-{
-ElevatorPosition0.whenPressed(new ElevatorCommand(1, "Port", "UP"));
-MaglolForword.whileHeld(new MaglolCommand(false));
-MaglolReverse.whileHeld(new MaglolCommand(true));
-ShooterButtonForword.whileHeld(new ShooterCommand(false));
-ShooterButtonReverse.whileHeld(new ShooterCommand(true));
-BButton1.whenPressed(new HatchCommad(1));
-BButton2.whenPressed(new HatchCommad(2));
-BButton3.whenPressed(new HatchCommad(3));
-}
+
+  //              Maglol Buttons
+  Button MaglolButton = new JoystickButton(rightJoy, 2);
+
+  public OI()
+  {
+    ElevatorPosition0.whenPressed(new ElevatorCommand(mode, PortOrHatch, UpOrDown)); //TODO: fill this button with real values
+    MaglolButton.toggleWhenPressed(new MaglolCommand(true));
+    ShooterButton.toggleWhenPressed(new ShooterCommand(true));
+    BButton1.whenPressed(new HatchCommad(1));
+    BButton2.whenPressed(new HatchCommad(2));
+    BButton3.whenPressed(new HatchCommad(3));
+  }
 }

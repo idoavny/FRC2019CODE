@@ -12,15 +12,15 @@ import frc.robot.Robot;
 
 public class ShooterCommand extends Command 
 {
-  private boolean isReverse;
+  private boolean activate;
+
   public ShooterCommand() 
   {
     requires(Robot.Shooter);
   }
-  public ShooterCommand(boolean isReverse) 
+  public ShooterCommand(boolean activate) 
   {
-    requires(Robot.Shooter);
-    this.isReverse = isReverse;
+    this.activate = activate;
   }
 
   @Override
@@ -32,17 +32,10 @@ public class ShooterCommand extends Command
   @Override
   protected void execute() 
   {
-   if(isReverse)
-    {
-      Robot.Shooter.SetSpeed(-Constants.ShooterSpeed);
-    }
-   else
-    {
-      Robot.Shooter.SetSpeed(Constants.ShooterSpeed);
-    }   
+    Robot.Shooter.setSolenoid(activate);
+    Robot.Shooter.setSpeed(Constants.ShooterSpeed);
   }
   
-
   @Override
   protected boolean isFinished()
   {
@@ -58,6 +51,7 @@ public class ShooterCommand extends Command
   @Override
   protected void interrupted()
   {
-    Robot.Shooter.SetSpeed(0); //TODO dosent seem right
+    Robot.Shooter.setSolenoid(!activate);
+    Robot.Shooter.setSpeed(-Constants.ShooterSpeed);
   }
 }

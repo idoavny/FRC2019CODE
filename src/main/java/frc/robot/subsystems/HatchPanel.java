@@ -26,14 +26,12 @@ public class HatchPanel extends Subsystem
   private Solenoid solenoid2 = new Solenoid(RobotMap.HPsolonoid2);
   private Solenoid solenoid3 = new Solenoid(RobotMap.HPsolonoid3);
 
-  public void SetTalonSpeed(double speed)
+  public void setTalonSpeed(double speed)
   {
     HPmotor.set(ControlMode.PercentOutput, speed);
   }
   
-  
-  
-  public void SetSelenoids(boolean mode)
+  public void setSelenoids(boolean mode)
   {
     solenoid1.set(mode);
     solenoid2.set(mode);
