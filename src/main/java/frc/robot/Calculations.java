@@ -21,4 +21,5 @@ public class Calculations
     {
         return (((Foot*12)+Inch)*2.54)/100;
     }
+//comment;
 }
