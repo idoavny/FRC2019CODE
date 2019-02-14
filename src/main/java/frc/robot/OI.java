@@ -15,14 +15,13 @@ import frc.robot.commands.MaglolCommand;
 
 public class OI 
 {
-//              JoySticks
+  //              JoySticks
   public Joystick rightJoy = new Joystick(0);
   public Joystick leftJoy = new Joystick(1);
   public Joystick ButtonJoy = new Joystick(2);
 
-//              Shotter buttons
-Button ShooterButtonForword = new JoystickButton(leftJoy, 2);
-Button ShooterButtonReverse = new JoystickButton(leftJoy, 3);
+  //              Shotter buttons
+  Button ShooterButton = new JoystickButton(leftJoy, 2);
 
 //              HatchPanel buttons
 Button hatch1 = new JoystickButton(ButtonJoy, 1);
@@ -30,19 +29,18 @@ Button hatch2 = new JoystickButton(ButtonJoy, 2);
 Button hatch3 = new JoystickButton(ButtonJoy, 3);
 
 
-//              Elevator buttons
-Button ElevatorPosition0 = new JoystickButton(rightJoy, 1);
+  //              Elevator buttons
+  Button ElevatorPosition0 = new JoystickButton(rightJoy, 1);
 
 
-//              Maglol Buttons
-Button MaglolForword = new JoystickButton(rightJoy, 2);
-Button MaglolReverse = new JoystickButton(rightJoy, 3);
+  //              Maglol Buttons
+  Button MaglolButton = new JoystickButton(rightJoy, 2);
 
 public OI()
 {
 ElevatorPosition0.whenPressed(new ElevatorCommand());
-MaglolForword.whileHeld(new MaglolCommand());
-MaglolReverse.whileHeld(new MaglolCommand());
+MaglolButton.whileHeld(new MaglolCommand());
+
 hatch1.toggleWhenPressed(new HatchCommad("pick"));
 hatch2.toggleWhenPressed(new HatchCommad("release"));
 hatch3.toggleWhenPressed(new HatchCommad("hatchpanel"));

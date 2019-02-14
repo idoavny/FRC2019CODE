@@ -14,12 +14,11 @@ public class Calculations
 {
     public static double MeterPerPulse(int WheelDIameter, int EncoderResolution)
     {
-        return(((WheelDIameter*Math.PI*2.54)/100)/EncoderResolution);
+        return(((WheelDIameter*Math.PI*2.54)/100)/EncoderResolution); //calculating the number of pulses for 1 motor rotation
     }
 
-    public static double FootAndInchToMeter(int Foot,double Inch)
+    public static double FootAndInchToMeter(int Foot, double Inch)
     {
-        return (((Foot*12)+Inch)*2.54)/100;
+        return (((Foot*12)+Inch)*2.54)/100; //switching from foot and inches to meters
     }
-//comment;
 }

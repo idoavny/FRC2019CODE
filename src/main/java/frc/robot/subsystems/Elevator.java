@@ -37,55 +37,64 @@ public class Elevator extends Subsystem
   {
     enc.setPIDSourceType(PIDSourceType.kDisplacement);
     enc.setMinRate(.1);
+    
   }
 
 //            PID Methods             //
-  public double setKp(double Kp)
+public Double getCurrentPosition()
+{
+  return enc.getDistance();
+}
+
+  public void setKp(double Kp)
   {
-    return this.Kp = Kp;
-  }
-  
-  public double setKi(double Ki)
-  {
-    return this.Ki = Ki;
+    this.Kp = Kp; //setting the kp
   }
 
-  public double setKd(double Kd)
+  public void setKi(double Ki)
   {
-    return this.Kd = Kd;
+    this.Ki = Ki; //setting the ki
+  }
+
+  public void setKd(double Kd)
+  {
+    this.Kd = Kd; //setting the kd
   }
 
   public void PIDsetSetpoint(int setpoint)
   {
-    pid.setSetpoint(setpoint);
-    
+    pid.setSetpoint(setpoint); //setting the set point using pid
   }
 
   public void PIDSetAbsoluteTolerance(double tolerance)
   {
-    pid.setAbsoluteTolerance(tolerance);
+    pid.setAbsoluteTolerance(tolerance); //setting the tolerance using pid
   }
   
   public void PIDReset()
   {
-    pid.reset();
+    pid.reset(); //reseting the pid
   }
 
   public void PIDEnableOrDisable(boolean Enable)
   {
-    if(Enable == true){pid.enable();}
-    else{pid.disable();}
+    if(Enable == true) {  //enabling the pid
+      pid.enable();
+    }
+    else { //disabling the pid
+      pid.disable();
+    }
   }
 
   public void PIDsetOutRange(Double max, Double min)
   {
-    pid.setOutputRange(min, max);
+    pid.setOutputRange(min, max); //setting the max and min heights for the pid
   }
 
 //            Encoder Methods             //
   public void EncoderReverse (boolean reverse) 
   {
-    enc.setReverseDirection(reverse);
+    enc.setReverseDirection(reverse); //checking if need to reverse the encoder direction
   }
 
   public double EncoderPulses(){
@@ -102,7 +111,7 @@ public class Elevator extends Subsystem
 //            LimitSwitch Methods             //
   public boolean limitSwitch() 
   {
-    return LimitSwitch.get();
+    return LimitSwitch.get(); //getting mode from the limit switch
   }
 
   @Override
