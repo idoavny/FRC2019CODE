@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ElevatorCommand;
 import frc.robot.commands.HatchCommad;
 import frc.robot.commands.MaglolCommand;
-import frc.robot.commands.ShooterCommand;
 
 public class OI 
 {
@@ -26,9 +25,9 @@ Button ShooterButtonForword = new JoystickButton(leftJoy, 2);
 Button ShooterButtonReverse = new JoystickButton(leftJoy, 3);
 
 //              HatchPanel buttons
-Button BButton1 = new JoystickButton(ButtonJoy, 1);
-Button BButton2 = new JoystickButton(ButtonJoy, 2);
-Button BButton3 = new JoystickButton(ButtonJoy, 3);
+Button hatch1 = new JoystickButton(ButtonJoy, 1);
+Button hatch2 = new JoystickButton(ButtonJoy, 2);
+Button hatch3 = new JoystickButton(ButtonJoy, 3);
 
 
 //              Elevator buttons
@@ -41,13 +40,11 @@ Button MaglolReverse = new JoystickButton(rightJoy, 3);
 
 public OI()
 {
-ElevatorPosition0.whenPressed(new ElevatorCommand(1, "Port", "UP"));
-MaglolForword.whileHeld(new MaglolCommand(false));
-MaglolReverse.whileHeld(new MaglolCommand(true));
-ShooterButtonForword.whileHeld(new ShooterCommand(false));
-ShooterButtonReverse.whileHeld(new ShooterCommand(true));
-BButton1.whenPressed(new HatchCommad(1));
-BButton2.whenPressed(new HatchCommad(2));
-BButton3.whenPressed(new HatchCommad(3));
+ElevatorPosition0.whenPressed(new ElevatorCommand());
+MaglolForword.whileHeld(new MaglolCommand());
+MaglolReverse.whileHeld(new MaglolCommand());
+hatch1.toggleWhenPressed(new HatchCommad("pick"));
+hatch2.toggleWhenPressed(new HatchCommad("release"));
+hatch3.toggleWhenPressed(new HatchCommad("hatchpanel"));
 }
 }

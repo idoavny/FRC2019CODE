@@ -17,16 +17,16 @@ import frc.robot.Robot;
 
 public class HatchCommad extends Command 
 {
-  private int case1;
+  private String Mode;
   public HatchCommad() 
   {
     requires(Robot.hatchPanel);
   }
 
-  public HatchCommad(int case1)
+  public HatchCommad(String Mode)
   {
     requires(Robot.hatchPanel);
-    this.case1 = case1;
+    this.Mode = Mode;
   }
 
   @Override
@@ -38,34 +38,22 @@ public class HatchCommad extends Command
   @Override
   protected void execute() 
   {
-    switch(case1)
+    switch(Mode)
     {
-
-      case 1:     //drop a hatchpanel
-        Robot.hatchPanel.SetSelenoids(true);
-        Timer.delay(Constants.HatchPaneldelay);
-        Robot.hatchPanel.SetSelenoids(false);
+      case "pick":
+      Robot.hatchPanel.setSpeed(0.9, 0, false);
       break;
 
-      case 2:     // hatchpanel mover goes 90 degrees (from 0)
-        double degrees1 = Robot.hatchPanel.potentiometer.get();
-        while (degrees1<Constants.Hatchpanel90deg)
-        {
-        Robot.hatchPanel.SetTalonSpeed(Constants.HatchPanelTurningSpeed);
-        degrees1 = Robot.hatchPanel.potentiometer.get();
-        }
+      case "shoot":
+      Robot.hatchPanel.setSpeed(0.9, 1, true);
+      Timer.delay(2);
+      Robot.hatchPanel.setSpeed(0.9, 2, true);
       break;
 
-      case 3:     // hatchpanel mover goes -90 degrees (from 90)
-       degrees1 = Robot.hatchPanel.potentiometer.get();
-        while (degrees1>Constants.Hatchpanel0deg) //this is because I dont want to break the motor
-        {
-        Robot.hatchPanel.SetTalonSpeed(-Constants.HatchPanelTurningSpeed);
-        degrees1 = Robot.hatchPanel.potentiometer.get();
-        }
+      case "hatchpanel":
+      Robot.hatchPanel.SetSelenoids(true);
       break;
     }
-
   }
 
   @Override
@@ -83,6 +71,7 @@ public class HatchCommad extends Command
   @Override
   protected void interrupted() 
   {
-    
+    Robot.hatchPanel.setSpeed(0, 0, false);
+    Robot.hatchPanel.SetSelenoids(true);
   }
 }

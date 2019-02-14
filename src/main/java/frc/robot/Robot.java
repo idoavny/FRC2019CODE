@@ -7,8 +7,10 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -20,10 +22,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.HatchPanel;
 import frc.robot.subsystems.Maglol;
-
-import frc.robot.subsystems.Shooter;
 //testing branches
-
 public class Robot extends TimedRobot 
 {
   public static Autonomus m_subsystem = new Autonomus();
@@ -32,41 +31,42 @@ public class Robot extends TimedRobot
   public static Maglol maglol;
   public static DriveTrain drive;
   public static HatchPanel hatchPanel;
+  public AHRS navxTesting;
 
-  public static Shooter Shooter;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   @Override
   public void robotInit() 
   {
+    navxTesting = new AHRS(SPI.Port.kMXP);
     drive = new DriveTrain();
     hatchPanel = new HatchPanel();
     maglol = new Maglol();
     m_oi = new OI();
     elevator = new Elevator();
-    Shooter= new Shooter();
-    
-   
-
 
     CameraServer.getInstance().startAutomaticCapture();
 
     m_chooser.setDefaultOption("Default Auto", new AutonomusCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+
   }
 
 
   @Override
   public void robotPeriodic()
   {
+    SmartDashboard.putNumber("Elevator Encoder", elevator.EncoderPulses());
+    SmartDashboard.putNumber("Angle", navxTesting.getAngle());
   }
 
  
   @Override
   public void disabledInit()
   {
+
   }
 
   @Override
@@ -80,8 +80,7 @@ public class Robot extends TimedRobot
   {
     m_autonomousCommand = m_chooser.getSelected();
 
-    
-    if (m_autonomousCommand != null) 
+    if(m_autonomousCommand != null) 
     {
       m_autonomousCommand.start();
     }

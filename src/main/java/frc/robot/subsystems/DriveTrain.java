@@ -34,13 +34,12 @@ public class DriveTrain extends Subsystem
   public DriveTrain()
   {
     drive.setDeadband(0);
-    
   }
 
 
   public void setTankSpeed(double RightSpeed, double LeftSpeed)
   {
-  drive.tankDrive(LeftSpeed, RightSpeed);;
+    drive.tankDrive(LeftSpeed, RightSpeed);;
   }
 
   @Override

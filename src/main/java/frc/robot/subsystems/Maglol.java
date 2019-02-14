@@ -7,11 +7,13 @@
 
 package frc.robot.subsystems;
 
-
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 /*** 
  Maglol Subsystem:
@@ -23,20 +25,45 @@ import frc.robot.RobotMap;
 
 public class Maglol extends Subsystem 
 {
-  Solenoid solenoid1 = new Solenoid(1);
-  Solenoid solenoid2 = new Solenoid(2);
-  private Talon motor1 = new Talon(RobotMap.MAGLOL_MOTOR1);
-  private DigitalInput LimitSwitch = new DigitalInput(RobotMap.MAGLOL_LIMIT_SWITCH);
+  AnalogInput AI = new AnalogInput(RobotMap.AnalogIn);  //TODO: put real analog input channel
+  Potentiometer pot = new AnalogPotentiometer(AI, Constants.fullrange, Constants.offSet); //TODO: put real values
 
-  public boolean isPressed(){
-    return LimitSwitch.get();
-  }
-  public void setSpeed(Double speed)
+  private Talon pickMotor = new Talon(RobotMap.MAGLOL_MOTOR);
+  private Talon motor2 = new Talon(RobotMap.MAGLOL_RIGHT_ROATION);
+  private Talon motor3 = new Talon(RobotMap.MAGLOL_LEFT_ROATION);
+
+  public void setSpeed(Double speed, int choice,Boolean reverse)
   {
-  motor1.set(speed);
+    if(reverse = false){
+      switch(choice)
+      {
+        case 1:
+          pickMotor.set(speed);
+          break;
+        case 2:
+          motor2.set(speed);
+          motor3.set(-speed);
+          break;
+      }
+    }
+    else{
+      switch(choice)
+      {
+        case 1:
+          pickMotor.set(-speed);
+          break;
+        case 2:
+          motor2.set(-speed);
+          motor3.set(speed);
+          break;
+      }
+    }
+    
   }
 
-
+  public double  getAngle() {
+    return pot.get();
+  }
 
   @Override
   public void initDefaultCommand() 

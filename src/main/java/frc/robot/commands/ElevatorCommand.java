@@ -7,18 +7,23 @@
 
 package frc.robot.commands;
 
+import java.util.logging.Level;
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Calculations;
+import frc.robot.Constants;
 import frc.robot.Robot;
-// TODO Put all of thoose numbers in constants!
 public class ElevatorCommand extends Command 
-{
- private String PortOrHatch;
- private double Setpoint;
+{ 
+ private double CurrentPosition;
+ private int Setpoint;
  private boolean disable;
- private int mode = 0;
- private double DistancePortsFoot = 2;
- private double DistancePortsInch = 4;
+ private int Level;
+ private boolean Auto;
+// private double waitTime;
+// private double LastTimeonTarget;
+
   
   boolean limitswitch = false;
 
@@ -26,77 +31,65 @@ public class ElevatorCommand extends Command
   {
     requires(Robot.elevator);
   }
-  public ElevatorCommand(int mode, String PortOrHatch,String UpOrDown) 
-  {
-    requires(Robot.elevator);
-    this.mode = mode;
-    this.PortOrHatch = PortOrHatch;
-    if(UpOrDown == "Up"){
-      Robot.elevator.setKp(0);
-      Robot.elevator.setKi(0);
-      Robot.elevator.setKd(0);
-    }
-    if(UpOrDown == "Down"){
-      Robot.elevator.setKp(0);
-      Robot.elevator.setKi(0);
-      Robot.elevator.setKd(0);
-    }
+  public ElevatorCommand(boolean Auto){
+    this.Auto = Auto;
   }
-  public ElevatorCommand(boolean disable) 
+  public ElevatorCommand(boolean disable, int Setpoint) 
   {
     requires(Robot.elevator);
     this.disable = disable;
+    this.Setpoint = Setpoint;
   }
 
   @Override
   protected void initialize() 
   {
-    switch(PortOrHatch){
-      case "Port":
-        switch(mode) 
-        {
-          case 1:
-          Setpoint = Calculations.FootAndInchToMeter(2, 3.5);
-          break;
+    if(Auto){
+      switch(Level){
+        case 0:
+         Robot.elevator.PIDsetSetpoint(0);
+        break;
+        case 1:
+        Robot.elevator.PIDsetSetpoint(0);
+        break;
+        case 2:
+        Robot.elevator.PIDsetSetpoint(0);
+        break;
+        case 3:
+        Robot.elevator.PIDsetSetpoint(0);
+        break;
+        case 4:
+        Robot.elevator.PIDsetSetpoint(0);
+        break;
+        case 5:
+        Robot.elevator.PIDsetSetpoint(0);
+        break;
+        case 7:
+        Robot.elevator.PIDsetSetpoint(0);
+        break;
 
-          case 2:
-          Setpoint = Calculations.FootAndInchToMeter(4,7.5);          
-          break;
-
-          case 3:
-          Setpoint = Calculations.FootAndInchToMeter(6,11.5);
-          break;
-        }
-    break;
-      case "Hatch":
-        switch(mode) 
-        {
-          case 1:
-          Setpoint = Calculations.FootAndInchToMeter(1, 7);
-          break;
-
-          case 2:
-          Setpoint = Calculations.FootAndInchToMeter(3,11);          
-          break;
-
-          case 3:
-          Setpoint = Calculations.FootAndInchToMeter(6,3);
-          break;
-        }
-    break;
+      }
     }
+   // waitTime = Constants.pidWaitTime;
     Robot.elevator.PIDsetSetpoint(Setpoint);
+    Robot.elevator.PIDSetAbsoluteTolerance(2);
+    Robot.elevator.PIDsetOutRange(0.8,-0.8);
+
+    CurrentPosition = Robot.elevator.EncoderPulses();
+    if(CurrentPosition > Setpoint){
+      Robot.elevator.setKp(0);
+      Robot.elevator.setKi(0);
+      Robot.elevator.setKd(0);
+    }
+    else{
+      Robot.elevator.setKp(0);
+      Robot.elevator.setKi(0);
+      Robot.elevator.setKd(0);
+    }
   }
   @Override
   protected void execute() 
   {
-    limitswitch = Robot.elevator.limitSwitch();
-    if( limitswitch == true) 
-    {
-      Robot.elevator.SetSpeed(0);
-      Robot.elevator.PIDsetSetpoint(0.);
-      Robot.elevator.enc.reset();
-    }
     Robot.elevator.PIDEnableOrDisable(true);
   }
 
@@ -104,6 +97,11 @@ public class ElevatorCommand extends Command
   protected boolean isFinished() 
   {
     return disable;
+    /*if(!Robot.elevator.pid.onTarget()){
+      LastTimeonTarget = Timer.getFPGATimestamp();
+    }                                                                   if the pid is on target waitTime time the command stops
+    return Timer.getFPGATimestamp() - LastTimeonTarget > waitTime;
+    */
   }
 
   @Override
