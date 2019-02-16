@@ -11,39 +11,111 @@ public class RobotMap {
     //comment
 
 //              Joysticks
-public static int LJoyport = 1;
-public static int RJoyport = 2;
+public enum Joysticks
+{
+MaglolForwordButton(16),
+MaglolReverseButton(17),
+LeftJoystick(1),
+RightJoystick(0);
+private int value;
+ Joysticks(int value)
+ {
+    this.value = value;
+ }
+ public int  getValue()
+ {
+    return value;
+ }
+}
+   //              Drive
+public enum Drive
+{
 
-//              Drive
-public static int RightMotor = 3;
-public static int RearRightMotor = 1;
-public static int LeftMotor = 2;
-public static int RearLeftMotor = 0;
+RightMotor1(12),
+RightMotor2(20),
+rightMotor3(30),
+LeftMotor1(10),
+LeftMotor2(15),
+LeftMotor3(17);
+private int value;
+ Drive(int value)
+ {
+    this.value = value;
+ }
+ public int  getValue()
+ {
+    return value;
+ }
+}
+   //              Maglol
+public enum Maglol
+{
+AnalogIn(7),
+MAG_PICK(11),
+MAG_ROTATE(9),
+MAGLOL_MOTOR(10),
+MAGLOL_RIGHT_ROATION(11), 
+MAGLOL_LEFT_ROATION(12);
 
-//              Maglol
-public static int MAGLOL_MOTOR1 = 4;
-public static int MAGLOL_LIMIT_SWITCH = 2;
+private int value;
+ Maglol(int value)
+ {
+    this.value = value;
+ }
+ public int  getValue()
+ {
+    return value;
+ }
+}
 
-//              Shooter
-public static int Shooter_Motor = 5; 
+public enum Fork
+{
+HPsolonoid1(7),
+Shooter_Motor(13),
+HPmotor1(14),
+HPmotor2(15),
+HPmotor3(16);
+//public static int HPpotentiometer = 5;
+
+private int value;
+ Fork(int value)
+ {
+    this.value = value;
+ }
+ public int  getValue()
+ {
+    return value;
+ }
+}
+
+public enum Elevator
+{
+//              Elevator
+ElevatorRight(42),
+ElevatorLeft(19),
+LimitSwitch(19),
+ELEVATOR_LIMIT_SWITCH(20);
+private int value;
+ Elevator(int value)
+ {
+    this.value = value;
+ }
+ public int  getValue()
+ {
+    return value;
+ }
+}
 
 //              HatchPanel
-public static int HPsolonoid1 = 0;
-public static int HPsolonoid2 = 1;
-public static int HPsolonoid3 = 2;
-public static int HPpotentiometer = 5;
-public static int HPmotor = 6;
-//              Right JoyStick Buttons
-public static int MaglolForwordButton = 2;
-public static int MaglolReverseButton = 3;
-
-//              Left JoyStick Buttons
-
-
-//              Elevator
-public static int RightSally = 1;
-public static int LeftSally = 2;
-public static int LimitSwitch = 1;
-
-
+public enum HatchPanel{
+   solenoidPort(4),
+   TalonPWM(19);
+   private int value;
+   HatchPanel(int value){
+       this.value = value;
+   }
+   public int getValue(){
+      return value;
+   }
+}
 }

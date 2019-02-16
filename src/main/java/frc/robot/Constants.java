@@ -1,28 +1,37 @@
 package frc.robot;
 
 public class Constants {
-    // hatchpanel command constants:
-    public static int Hatchpanel90deg = 90;
-    public static int Hatchpanel0deg = 1;
-    public static double HatchPaneldelay = 0.2;
-    public static double HatchPanelTurningSpeed = 0.5;
 
     // JoyStick command constants:
-    public static int Tankspeed = 0;
+    public static int ZeroSpeed = 0;
 
-    // maglol command constants:
-    public static double MagTimeOut = 0.2;
-    public static double MagSpeed = 0.5;
-    public static double MagSpeedinterrapted = 0;
+// maglol command constants:
+public static int fullrange = 0;
+public static int offSet = 0;
+public static double MagTimeOut = 0.2;
+public static double MagSpeed = 0.9;
+public static double MagSpeedinterrapted = 0;
 
     // shooter command constants:
     public static double ShooterSpeed = 0.5;
 
-    // elevator command constants:
-    public static double KpUp = 0;
-    public static double KiUp = 0;
-    public static double KdUp = 0;
-    public static double KfUp = 0;
+// Elevator command constants:
+public static double pidMax = 0;
+public static double pidMin = 0;
+public static double pidWaitTime = 0.2;
+
+// HatchPanel command constants:
+ public enum HatchPanel{
+    speed(0.8);
+
+    private  double value;
+    HatchPanel(double value){
+        this.value = value;
+    }
+    public double Value(){
+        return value;
+    }
+ } 
 
     public static double KpDown = 0;
     public static double KiDown = 0;

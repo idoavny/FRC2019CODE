@@ -8,53 +8,67 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class MaglolCommand extends Command 
 {
-  private boolean activate;
-
+  private boolean Pick;
+  private boolean isReverse;
+  private double DesiredAngle;
+  private double currentAngle;
   public MaglolCommand() 
   {
     requires(Robot.maglol);
   }
-  
-  public MaglolCommand(boolean activate) 
-  {
-    this.activate = activate;
+
+  public MaglolCommand(boolean Pick,boolean isReverse, double DesiredAngle) {
+    this.Pick = Pick;
+    this.isReverse = isReverse;
+    this.DesiredAngle = DesiredAngle;
+
   }
 
   @Override
   protected void initialize() 
   {
-    setTimeout(Constants.MagTimeOut);
   }
 
   @Override
   protected void execute() 
   {
-    Robot.maglol.setSolenoid(activate);
-    Robot.maglol.setSpeed(Constants.MagSpeed);
+    if(Pick){
+      Robot.maglol.setSpeed(Constants.MagSpeed, 1, isReverse);
+    }
+    else{
+      while(currentAngle != DesiredAngle){
+        if(currentAngle > DesiredAngle){
+          Robot.maglol.setSpeed(Constants.MagSpeed, 2, false);
+        }
+        else{
+          Robot.maglol.setSpeed(Constants.MagSpeed, 2, true);
+        }
+      }
+      setTimeout(Constants.MagTimeOut);
+    }
   }
 
   @Override
   protected boolean isFinished() 
   {
-    return false;
+    return isTimedOut();
   }
 
   @Override
   protected void end() 
   {
-
+    Robot.maglol.setSpeed(0.0, 2, false);
   }
 
   @Override
   protected void interrupted() 
   {
-    Robot.maglol.setSolenoid(!activate);
-    Robot.maglol.setSpeed(-Constants.MagSpeed);
+    Robot.maglol.setSpeed(Constants.MagSpeedinterrapted, 2, false);
+    Robot.maglol.setSpeed(Constants.MagSpeedinterrapted, 1, false);
   }
 }

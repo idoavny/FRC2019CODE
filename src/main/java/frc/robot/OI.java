@@ -10,9 +10,8 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ElevatorCommand;
-import frc.robot.commands.HatchCommad;
+import frc.robot.commands.ForkCommad;
 import frc.robot.commands.MaglolCommand;
-import frc.robot.commands.ShooterCommand;
 
 public class OI 
 {
@@ -24,26 +23,29 @@ public class OI
   //              Shotter buttons
   Button ShooterButton = new JoystickButton(leftJoy, 2);
 
-  //              HatchPanel buttons
-  Button BButton1 = new JoystickButton(ButtonJoy, 1);
-  Button BButton2 = new JoystickButton(ButtonJoy, 2);
-  Button BButton3 = new JoystickButton(ButtonJoy, 3);
+//              HatchPanel buttons
+Button fork1 = new JoystickButton(ButtonJoy, 1);
+Button fork2 = new JoystickButton(ButtonJoy, 2);
+Button fork3 = new JoystickButton(ButtonJoy, 3);
 
 
   //              Elevator buttons
   Button ElevatorPosition0 = new JoystickButton(rightJoy, 1);
+  Button ElevatorPosition2 = new JoystickButton(rightJoy, 2);
 
 
   //              Maglol Buttons
-  Button MaglolButton = new JoystickButton(rightJoy, 2);
+  Button MaglolButton = new JoystickButton(rightJoy, 3);
+  Button MaglolButton2 = new JoystickButton(rightJoy, 4);
 
-  public OI()
-  {
-    ElevatorPosition0.whenPressed(new ElevatorCommand(mode, PortOrHatch, UpOrDown)); //TODO: fill this button with real values
-    MaglolButton.toggleWhenPressed(new MaglolCommand(true));
-    ShooterButton.toggleWhenPressed(new ShooterCommand(true));
-    BButton1.whenPressed(new HatchCommad(1));
-    BButton2.whenPressed(new HatchCommad(2));
-    BButton3.whenPressed(new HatchCommad(3));
-  }
+public OI()
+{
+  ElevatorPosition0.whileHeld(new ElevatorCommand(false, false, 0));
+  ElevatorPosition2.whileHeld(new ElevatorCommand(false, true, 0));
+MaglolButton.whileHeld(new MaglolCommand(true, false, 0));
+MaglolButton2.whileHeld(new MaglolCommand(true, true, 0));
+
+fork1.toggleWhenPressed(new ForkCommad("pick"));
+fork2.toggleWhenPressed(new ForkCommad("release"));
+}
 }

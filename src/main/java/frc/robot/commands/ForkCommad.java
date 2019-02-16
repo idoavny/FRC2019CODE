@@ -6,52 +6,67 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-import frc.robot.Constants;
+
+
+
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ShooterCommand extends Command 
-{
-  private boolean activate;
+public class ForkCommad extends Command {
+  private String Mode;
 
-  public ShooterCommand() 
-  {
-    requires(Robot.Shooter);
+  public ForkCommad() {
+    requires(Robot.fork);
   }
-  public ShooterCommand(boolean activate) 
+
+  public ForkCommad(String Mode)
   {
-    this.activate = activate;
+    requires(Robot.fork);
+    this.Mode = Mode;
   }
 
   @Override
   protected void initialize() 
   {
-  
+
   }
 
   @Override
   protected void execute() 
   {
-    Robot.Shooter.setSolenoid(activate);
-    Robot.Shooter.setSpeed(Constants.ShooterSpeed);
+    switch(Mode)
+    {
+      case "pick":
+      Robot.fork.setSpeed(0.9, 0, false);
+      break;
+
+      case "shoot":
+      Robot.fork.setSpeed(0.9, 1, true);
+      Timer.delay(2);
+      Robot.fork.setSpeed(0.9, 2, true);
+      break;
+
+    }
   }
-  
+
   @Override
-  protected boolean isFinished()
+  protected boolean isFinished() 
   {
     return false;
   }
 
   @Override
-  protected void end()
+  protected void end() 
   {
 
   }
 
   @Override
-  protected void interrupted()
+  protected void interrupted() 
   {
-    Robot.Shooter.setSolenoid(!activate);
-    Robot.Shooter.setSpeed(-Constants.ShooterSpeed);
+    Robot.fork.setSpeed(0, 0, false);
+    Robot.fork.SetSelenoids(true);
   }
 }

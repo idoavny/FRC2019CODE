@@ -7,11 +7,15 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Potentiometer;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
 /*** 
  Maglol Subsystem:
@@ -23,31 +27,43 @@ import frc.robot.RobotMap;
 
 public class Maglol extends Subsystem 
 {
-  Solenoid solenoid1 = new Solenoid(1);
-  Solenoid solenoid2 = new Solenoid(2);
-  private Talon motor1 = new Talon(RobotMap.MAGLOL_MOTOR1);
-  private DigitalInput LimitSwitch = new DigitalInput(RobotMap.MAGLOL_LIMIT_SWITCH);
+  AnalogInput AI = new AnalogInput(RobotMap.Maglol.AnalogIn.getValue());  //TODO: put real analog input channel
+  Potentiometer pot = new AnalogPotentiometer(AI, Constants.fullrange, Constants.offSet); //TODO: put real values
 
-  public boolean isPressed()
+  private TalonSRX pickMotor = new TalonSRX(RobotMap.Maglol.MAG_PICK.getValue());
+  private Talon motor2 = new Talon(RobotMap.Maglol.MAGLOL_RIGHT_ROATION.getValue());
+  private Talon motor3 = new Talon(RobotMap.Maglol.MAGLOL_LEFT_ROATION.getValue());
+
+  public void setSpeed(Double speed, int choice, Boolean reverse)
   {
-    return LimitSwitch.get();
+    if(!reverse){
+      switch(choice)
+      {
+        case 1:
+          pickMotor.set(ControlMode.PercentOutput, speed);
+          break;
+        case 2:
+          motor2.set(speed);
+          motor3.set(-speed);
+          break;
+      }
+    }
+    else{
+      switch(choice)
+      {
+        case 1:
+          pickMotor.set(ControlMode.PercentOutput,-speed);
+          break;
+        case 2:
+          motor2.set(-speed);
+          motor3.set(speed);
+          break;
+      }
+    }
   }
 
-  public void setSpeed(double speed)
-  {
-    motor1.set(speed);
-  }
-
-  public void setSolenoid(boolean activate)
-  {
-    if(activate == true) {
-      solenoid1.set(true);
-      solenoid2.set(true);
-    }
-    else {
-      solenoid1.set(false);
-      solenoid2.set(false);
-    }
+  public double  getAngle() {
+    return pot.get();
   }
 
   @Override
