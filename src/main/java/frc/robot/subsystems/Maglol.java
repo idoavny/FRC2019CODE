@@ -7,9 +7,11 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
@@ -25,20 +27,20 @@ import frc.robot.RobotMap;
 
 public class Maglol extends Subsystem 
 {
-  AnalogInput AI = new AnalogInput(RobotMap.AnalogIn);  //TODO: put real analog input channel
+  AnalogInput AI = new AnalogInput(RobotMap.Maglol.AnalogIn.getValue());  //TODO: put real analog input channel
   Potentiometer pot = new AnalogPotentiometer(AI, Constants.fullrange, Constants.offSet); //TODO: put real values
 
-  private Talon pickMotor = new Talon(RobotMap.MAGLOL_MOTOR);
-  private Talon motor2 = new Talon(RobotMap.MAGLOL_RIGHT_ROATION);
-  private Talon motor3 = new Talon(RobotMap.MAGLOL_LEFT_ROATION);
+  private TalonSRX pickMotor = new TalonSRX(RobotMap.Maglol.MAG_PICK.getValue());
+  private Talon motor2 = new Talon(RobotMap.Maglol.MAGLOL_RIGHT_ROATION.getValue());
+  private Talon motor3 = new Talon(RobotMap.Maglol.MAGLOL_LEFT_ROATION.getValue());
 
-  public void setSpeed(Double speed, int choice,Boolean reverse)
+  public void setSpeed(Double speed, int choice, Boolean reverse)
   {
-    if(reverse = false){
+    if(!reverse){
       switch(choice)
       {
         case 1:
-          pickMotor.set(speed);
+          pickMotor.set(ControlMode.PercentOutput, speed);
           break;
         case 2:
           motor2.set(speed);
@@ -50,7 +52,7 @@ public class Maglol extends Subsystem
       switch(choice)
       {
         case 1:
-          pickMotor.set(-speed);
+          pickMotor.set(ControlMode.PercentOutput,-speed);
           break;
         case 2:
           motor2.set(-speed);
@@ -58,7 +60,6 @@ public class Maglol extends Subsystem
           break;
       }
     }
-    
   }
 
   public double  getAngle() {

@@ -20,18 +20,21 @@ import frc.robot.commands.AutonomusCommand;
 import frc.robot.subsystems.Autonomus;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.HatchPanel;
+import frc.robot.subsystems.Fork;
+import frc.robot.subsystems.Hatchpanel;
 import frc.robot.subsystems.Maglol;
 //testing branches
 public class Robot extends TimedRobot 
 {
   public static Autonomus m_subsystem = new Autonomus();
   public static OI m_oi;
-  public static Elevator elevator;
   public static Maglol maglol;
   public static DriveTrain drive;
-  public static HatchPanel hatchPanel;
+  public static Fork fork;
   public AHRS navxTesting;
+  public static Elevator elevator;
+  public static Hatchpanel hatchpanel;
+
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -40,13 +43,15 @@ public class Robot extends TimedRobot
   public void robotInit() 
   {
     navxTesting = new AHRS(SPI.Port.kMXP);
+    hatchpanel = new Hatchpanel();
     drive = new DriveTrain();
-    hatchPanel = new HatchPanel();
+    fork = new Fork();
     maglol = new Maglol();
-    m_oi = new OI();
-    elevator = new Elevator();
-
+    elevator  = new Elevator();
+    // CameraServer.getInstance().startAutomaticCapture();
     CameraServer.getInstance().startAutomaticCapture();
+    m_oi = new OI();
+
 
     m_chooser.setDefaultOption("Default Auto", new AutonomusCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
@@ -58,8 +63,8 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic()
   {
+    SmartDashboard.putNumber("Elevator pid", Robot.elevator.pid.getError());
     SmartDashboard.putNumber("Elevator Encoder", elevator.EncoderPulses());
-    SmartDashboard.putNumber("Angle", navxTesting.getAngle());
   }
 
  

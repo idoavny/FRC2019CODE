@@ -10,7 +10,6 @@ package frc.robot.commands;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 public class MaglolCommand extends Command 
 {
@@ -39,17 +38,18 @@ public class MaglolCommand extends Command
   protected void execute() 
   {
     if(Pick){
-      Robot.maglol.setSpeed(Constants.MagSpeed, 0, isReverse);
-    }else{
+      Robot.maglol.setSpeed(Constants.MagSpeed, 1, isReverse);
+    }
+    else{
       while(currentAngle != DesiredAngle){
         if(currentAngle > DesiredAngle){
-          Robot.maglol.setSpeed(Constants.MagSpeed, 2,false);
+          Robot.maglol.setSpeed(Constants.MagSpeed, 2, false);
         }
         else{
-          Robot.maglol.setSpeed(Constants.MagSpeed, 2,true);
+          Robot.maglol.setSpeed(Constants.MagSpeed, 2, true);
         }
       }
-     setTimeout(Constants.MagTimeOut);
+      setTimeout(Constants.MagTimeOut);
     }
   }
 
@@ -63,7 +63,6 @@ public class MaglolCommand extends Command
   protected void end() 
   {
     Robot.maglol.setSpeed(0.0, 2, false);
-
   }
 
   @Override

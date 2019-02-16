@@ -49,5 +49,6 @@
     "limitswitch",
     "setpoint",
     "wpilibj"
-  ]
+  ],
+  "maven.terminal.useJavaHome": true
 }

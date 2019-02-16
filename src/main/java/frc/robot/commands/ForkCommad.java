@@ -12,20 +12,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class HatchCommad extends Command 
-{
+public class ForkCommad extends Command {
   private String Mode;
-  public HatchCommad() 
-  {
-    requires(Robot.hatchPanel);
+
+  public ForkCommad() {
+    requires(Robot.fork);
   }
 
-  public HatchCommad(String Mode)
+  public ForkCommad(String Mode)
   {
-    requires(Robot.hatchPanel);
+    requires(Robot.fork);
     this.Mode = Mode;
   }
 
@@ -41,18 +39,15 @@ public class HatchCommad extends Command
     switch(Mode)
     {
       case "pick":
-      Robot.hatchPanel.setSpeed(0.9, 0, false);
+      Robot.fork.setSpeed(0.9, 0, false);
       break;
 
       case "shoot":
-      Robot.hatchPanel.setSpeed(0.9, 1, true);
+      Robot.fork.setSpeed(0.9, 1, true);
       Timer.delay(2);
-      Robot.hatchPanel.setSpeed(0.9, 2, true);
+      Robot.fork.setSpeed(0.9, 2, true);
       break;
 
-      case "hatchpanel":
-      Robot.hatchPanel.SetSelenoids(true);
-      break;
     }
   }
 
@@ -71,7 +66,7 @@ public class HatchCommad extends Command
   @Override
   protected void interrupted() 
   {
-    Robot.hatchPanel.setSpeed(0, 0, false);
-    Robot.hatchPanel.SetSelenoids(true);
+    Robot.fork.setSpeed(0, 0, false);
+    Robot.fork.SetSelenoids(true);
   }
 }

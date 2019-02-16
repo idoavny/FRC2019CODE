@@ -7,12 +7,8 @@
 
 package frc.robot.commands;
 
-import java.util.logging.Level;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Calculations;
-import frc.robot.Constants;
 import frc.robot.Robot;
 public class ElevatorCommand extends Command 
 { 
@@ -21,22 +17,23 @@ public class ElevatorCommand extends Command
  private boolean disable;
  private int Level;
  private boolean Auto;
+ private boolean reverse;
 // private double waitTime;
 // private double LastTimeonTarget;
 
-  
   boolean limitswitch = false;
 
   public ElevatorCommand() 
   {
     requires(Robot.elevator);
   }
-  public ElevatorCommand(boolean Auto){
+  public ElevatorCommand(boolean Auto, boolean reverse, int Level){
     this.Auto = Auto;
+    this.reverse = reverse;
+    this.Level = Level;
   }
   public ElevatorCommand(boolean disable, int Setpoint) 
   {
-    requires(Robot.elevator);
     this.disable = disable;
     this.Setpoint = Setpoint;
   }
@@ -48,26 +45,25 @@ public class ElevatorCommand extends Command
       switch(Level){
         case 0:
          Robot.elevator.PIDsetSetpoint(0);
-        break;
+          break;
         case 1:
-        Robot.elevator.PIDsetSetpoint(0);
-        break;
+          Robot.elevator.PIDsetSetpoint(0);
+          break;
         case 2:
-        Robot.elevator.PIDsetSetpoint(0);
-        break;
+          Robot.elevator.PIDsetSetpoint(0);
+          break;
         case 3:
-        Robot.elevator.PIDsetSetpoint(0);
-        break;
+          Robot.elevator.PIDsetSetpoint(0);
+          break;
         case 4:
-        Robot.elevator.PIDsetSetpoint(0);
-        break;
+          Robot.elevator.PIDsetSetpoint(0);
+          break;
         case 5:
-        Robot.elevator.PIDsetSetpoint(0);
-        break;
+          Robot.elevator.PIDsetSetpoint(0);
+          break;
         case 7:
-        Robot.elevator.PIDsetSetpoint(0);
-        break;
-
+          Robot.elevator.PIDsetSetpoint(0);
+          break;
       }
     }
    // waitTime = Constants.pidWaitTime;
@@ -90,7 +86,19 @@ public class ElevatorCommand extends Command
   @Override
   protected void execute() 
   {
-    Robot.elevator.PIDEnableOrDisable(true);
+    if(!Auto){
+      if(!reverse){
+        Robot.elevator.SetSpeed(0.7);
+      }
+      else{
+        Robot.elevator.SetSpeed(-0.3);
+
+      }
+    }
+    else{
+      Robot.elevator.PIDEnableOrDisable(true);
+
+    }
   }
 
   @Override
