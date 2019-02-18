@@ -8,15 +8,12 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.LImitswitch;
 
-public class elevatorPID extends CommandGroup {
+public class HatchHook extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public elevatorPID() {
-    addSequential(new LImitswitch());
-   // addSequential(new PID(0));
+  public HatchHook() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
