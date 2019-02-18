@@ -14,7 +14,18 @@ public static double MagSpeedinterrapted = 0;
 
     // shooter command constants:
     public static double ShooterSpeed = 0.5;
-
+    // fork command constants:
+    public enum Fork{
+        forklimitswitch(45);
+    
+        private double value;
+        Fork(double value){
+            this.value = value;
+        }
+        public double Value(){
+            return value;
+        }
+     } 
 // Elevator command constants:
 public enum PIDconstants{
     P(9),
@@ -22,22 +33,6 @@ public enum PIDconstants{
 
     private double value;
     PIDconstants(double value){
-        this.value = value;
-    }
-    public double Value(){
-        return value;
-    }
- } 
-public static double pidMax = 0;
-public static double pidMin = 0;
-public static double pidWaitTime = 0.2;
-
-// HatchPanel command constants:
- public enum HatchPanel{
-    speed(0.8);
-
-    private  double value;
-    HatchPanel(double value){
         this.value = value;
     }
     public double Value(){

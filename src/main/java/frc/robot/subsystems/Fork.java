@@ -6,12 +6,14 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Constants;
 import frc.robot.RobotMap;
-
 
 public class Fork extends Subsystem {
 
@@ -22,11 +24,12 @@ public class Fork extends Subsystem {
   SpeedControllerGroup shoot = new SpeedControllerGroup(motor1, motor2);
   private Talon motor3 = new Talon(RobotMap.Fork.HPmotor3.getValue());
   public Solenoid solenoid1 = new Solenoid(RobotMap.Fork.HPsolonoid1.getValue());
+  private DigitalInput limitSwitch = new DigitalInput((int)Constants.Fork.forklimitswitch.Value());
 
   public Fork() {
    motor2.setInverted(true);
   }
-
+  
   public void setShootSpeed(double speed, boolean reverse)
   {
     if(!reverse){
@@ -39,7 +42,7 @@ public class Fork extends Subsystem {
     }
 
   }
-
+  
   public void setOutSpeed(double speed, boolean reverse)
   {
     if(!reverse){
@@ -53,6 +56,11 @@ public class Fork extends Subsystem {
   public void SetSelenoids(boolean mode)
   {
     solenoid1.set(mode);
+  }
+
+  public void GetLimitSwitch()
+  {
+    limitSwitch.get();
   }
   
   @Override

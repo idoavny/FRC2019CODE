@@ -61,7 +61,7 @@ public OI()
    MaglolButton5.toggleWhenPressed(new PickShoot(1, 2));
    ElevatorEncoderReset.whenPressed(new ElevatorEncoderReset());
    button.toggleWhenPressed(new PneomaticCommand(true));
-
+  
    
 
    

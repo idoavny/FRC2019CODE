@@ -9,6 +9,8 @@ package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
 
 import edu.wpi.first.wpilibj.Preferences;
@@ -43,6 +45,7 @@ public class Robot extends TimedRobot
   public AHRS navxTesting;
   public static Elevator elevator;
   public Preferences pref;
+
   //public PID pid;
 
 
@@ -52,6 +55,9 @@ public class Robot extends TimedRobot
   @Override
   public void robotInit() 
   {
+    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    camera.setResolution(640 , 480);
+
     pneo = new Pneomatics();
    //pid = new PID();
     navxTesting = new AHRS(SPI.Port.kMXP);
@@ -60,7 +66,6 @@ public class Robot extends TimedRobot
     maglol = new Maglol();
     elevator  = new Elevator();
     // CameraServer.getInstance().startAutomaticCapture();
-    CameraServer.getInstance().startAutomaticCapture();
     m_oi = new OI();
 
     m_chooser.setDefaultOption("Default Auto", new AutonomusCommand());
@@ -72,7 +77,7 @@ public class Robot extends TimedRobot
   public void robotPeriodic()
   {
 
-    if(Robot.elevator.limitSwitch()){
+    if(Robot.elevator.limitSwitch() && Robot.elevator.limitSwitch2()){
       Robot.elevator.EncoderReset();
     }
     SmartDashboard.putNumber("Potentiometer", Robot.maglol.PotentiometerValue());

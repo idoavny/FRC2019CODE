@@ -20,7 +20,7 @@ public class LImitswitch extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    while(Robot.elevator.limitSwitch() == false){
+    while(Robot.elevator.limitSwitch() == false && Robot.elevator.limitSwitch2() == false){
       Robot.elevator.SetSpeed(-0.2);
     }
     Robot.elevator.SetSpeed(0);

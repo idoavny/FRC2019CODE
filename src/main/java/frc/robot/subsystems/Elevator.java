@@ -118,6 +118,11 @@ public Double getCurrentPosition()
     return LimitSwitch.get(); //getting mode from the limit switch
   }
 
+  public boolean limitSwitch2() 
+  {
+    return LimitSwitch2.get(); //getting mode from the limit switch
+  }
+
   @Override
   public void initDefaultCommand() 
   {
