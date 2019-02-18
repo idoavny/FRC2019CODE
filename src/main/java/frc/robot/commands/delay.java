@@ -7,39 +7,39 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
-
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
-
-public class JoyStickCommand extends Command {
-  //comment
-  public JoyStickCommand() {
-    requires(Robot.drive);
+/**
+ * Add your docs here.
+ */
+public class delay extends TimedCommand {
+  /**
+   * Add your docs here.
+   */
+  public delay(double timeout) {
+    super(timeout);
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
-@Override
-protected void initialize() {
-
+  // Called just before this Command runs the first time
+  @Override
+  protected void initialize() {
   }
 
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drive.setTankSpeed(-Robot.m_oi.rightJoy.getY(), Robot.m_oi.leftJoy.getY());
   }
 
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
+  // Called once after timeout
   @Override
   protected void end() {
-
   }
 
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.drive.setTankSpeed(0, 0);
   }
 }

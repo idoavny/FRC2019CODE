@@ -12,8 +12,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Autonomus extends Subsystem 
 {
-
-
   @Override
   public void initDefaultCommand() 
   { 

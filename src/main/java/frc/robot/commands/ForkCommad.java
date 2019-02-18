@@ -15,16 +15,24 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class ForkCommad extends Command {
-  private String Mode;
+  private boolean Shoot;
+  private double speed;
+  private boolean isReverse;
 
   public ForkCommad() {
     requires(Robot.fork);
   }
-
-  public ForkCommad(String Mode)
+  public ForkCommad(int timeOut, boolean Shoot,boolean isReverse,double speed){
+    setTimeout(2);
+    this.Shoot = Shoot;
+    this.isReverse = isReverse;
+    this.speed = speed;
+  }
+  public ForkCommad(boolean Shoot, boolean isReverse, double speed)
   {
-    requires(Robot.fork);
-    this.Mode = Mode;
+    this.Shoot = Shoot;
+    this.isReverse = isReverse;
+    this.speed = speed;
   }
 
   @Override
@@ -36,37 +44,31 @@ public class ForkCommad extends Command {
   @Override
   protected void execute() 
   {
-    switch(Mode)
-    {
-      case "pick":
-      Robot.fork.setSpeed(0.9, 0, false);
-      break;
-
-      case "shoot":
-      Robot.fork.setSpeed(0.9, 1, true);
-      Timer.delay(2);
-      Robot.fork.setSpeed(0.9, 2, true);
-      break;
-
+    if(Shoot){
+      Robot.fork.setShootSpeed(speed, isReverse);
     }
+    else{
+      Robot.fork.setOutSpeed(speed, isReverse);
+    }
+  
   }
-
   @Override
   protected boolean isFinished() 
   {
-    return false;
+    return isTimedOut();
   }
 
   @Override
   protected void end() 
   {
+    Robot.fork.setShootSpeed(0, false);
 
   }
 
   @Override
   protected void interrupted() 
   {
-    Robot.fork.setSpeed(0, 0, false);
-    Robot.fork.SetSelenoids(true);
+    Robot.fork.setShootSpeed(0.0,true);
+    Robot.fork.setOutSpeed(0.0, true);
   }
 }

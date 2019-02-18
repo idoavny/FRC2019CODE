@@ -7,34 +7,25 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class HatchPanel extends Subsystem {
-  Solenoid solenoid = new Solenoid(RobotMap.HatchPanel.solenoidPort.getValue());
-  Talon motor = new Talon(RobotMap.HatchPanel.TalonPWM.getValue());
- 
+public class Pneomatics extends Subsystem {
+  Compressor comp = new Compressor();
+  Solenoid solenoid = new Solenoid(0);
+  public Pneomatics(){
+    comp.setClosedLoopControl(true);
+  }
+
   public void setSolenoid(boolean on){
     solenoid.set(on);
   }
-
-  public void setSpeed(double speed){
-    motor.set(speed);;
-  }
-
-  public void stop(){
-    motor.set(0);
-  }
-
-  public void Disable(){
-    motor.set(0);
-    solenoid.set(false);
-  }
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
 
   @Override
   public void initDefaultCommand() {

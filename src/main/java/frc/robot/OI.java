@@ -6,12 +6,19 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.ElevatorCommand;
+import frc.robot.CommandGroups.PickShoot;
+import frc.robot.commands.ElevatorEncoderReset;
 import frc.robot.commands.ForkCommad;
+//import frc.robot.commands.ForkPiston;
+import frc.robot.commands.LImitswitch;
 import frc.robot.commands.MaglolCommand;
+import frc.robot.commands.PID;
+import frc.robot.commands.PneomaticCommand;
+import frc.robot.subsystems.Elevator;
 
 public class OI 
 {
@@ -32,20 +39,39 @@ Button fork3 = new JoystickButton(ButtonJoy, 3);
   //              Elevator buttons
   Button ElevatorPosition0 = new JoystickButton(rightJoy, 1);
   Button ElevatorPosition2 = new JoystickButton(rightJoy, 2);
+  Button ElevatorEncoderReset = new JoystickButton(rightJoy, 6);
+
 
 
   //              Maglol Buttons
-  Button MaglolButton = new JoystickButton(rightJoy, 3);
-  Button MaglolButton2 = new JoystickButton(rightJoy, 4);
+  public Button MaglolButton = new JoystickButton(rightJoy, 3);
+  public Button MaglolButton2 = new JoystickButton(rightJoy, 4);
+  public Button MaglolButton3 = new JoystickButton(rightJoy, 5);
+  public Button MaglolButton4 = new JoystickButton(leftJoy, 1);
+  public Button MaglolButton5 = new JoystickButton(leftJoy, 2);
+  public Button button = new JoystickButton(leftJoy, 3);
+
+
+
 
 public OI()
 {
-  ElevatorPosition0.whileHeld(new ElevatorCommand(false, false, 0));
-  ElevatorPosition2.whileHeld(new ElevatorCommand(false, true, 0));
-MaglolButton.whileHeld(new MaglolCommand(true, false, 0));
-MaglolButton2.whileHeld(new MaglolCommand(true, true, 0));
+   ElevatorPosition0.whileHeld(new PID(0, false, false));
+   ElevatorPosition2.whileHeld(new PID(0, false, true));
+   MaglolButton.toggleWhenPressed(new PID(1, true, false));
+   MaglolButton2.toggleWhenPressed(new LImitswitch());
+   MaglolButton4.toggleWhenPressed(new PickShoot(0, 2));
+   MaglolButton5.toggleWhenPressed(new PickShoot(1, 2));
+   ElevatorEncoderReset.whenPressed(new ElevatorEncoderReset());
+   button.toggleWhenPressed(new PneomaticCommand(true));
 
-fork1.toggleWhenPressed(new ForkCommad("pick"));
-fork2.toggleWhenPressed(new ForkCommad("release"));
+   
+
+   
+
+
+
+//fork1.toggleWhenPressed(new ForkCommad("pick"));
+//fork2.toggleWhenPressed(new ForkCommad("release"));
 }
 }

@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Timer;
+
 /**
  * Add your docs here.
  */
@@ -21,4 +23,6 @@ public class Calculations
     {
         return (((Foot*12)+Inch)*2.54)/100; //switching from foot and inches to meters
     }
+
+
 }

@@ -6,16 +6,28 @@ public class Constants {
     public static int ZeroSpeed = 0;
 
 // maglol command constants:
-public static int fullrange = 0;
+public static int fullrange = 360;
 public static int offSet = 0;
 public static double MagTimeOut = 0.2;
-public static double MagSpeed = 0.9;
+public static double MagSpeed = 0.6;
 public static double MagSpeedinterrapted = 0;
 
     // shooter command constants:
     public static double ShooterSpeed = 0.5;
 
 // Elevator command constants:
+public enum PIDconstants{
+    P(9),
+    I(0.1);
+
+    private double value;
+    PIDconstants(double value){
+        this.value = value;
+    }
+    public double Value(){
+        return value;
+    }
+ } 
 public static double pidMax = 0;
 public static double pidMin = 0;
 public static double pidWaitTime = 0.2;
@@ -32,9 +44,4 @@ public static double pidWaitTime = 0.2;
         return value;
     }
  } 
-
-    public static double KpDown = 0;
-    public static double KiDown = 0;
-    public static double KdDown = 0;
-    public static double KfDown = 0;
 }

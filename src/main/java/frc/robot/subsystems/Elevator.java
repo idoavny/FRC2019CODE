@@ -20,14 +20,16 @@ import frc.robot.RobotMap;
 
 public class Elevator extends Subsystem 
 {
-  private double Kp;
-  private double Ki;
-  private double Kd;
+  private double kp;
+  private double ki;
+  private double kd;
 
   public Encoder enc = new Encoder(8, 9, false, EncodingType.k1X);
+  public  PIDController pid  = new PIDController(kp, ki, kd, enc, (speed) -> SetSpeed(speed));
 
-  public PIDController pid  = new PIDController(Kp, Ki, Kd, enc,(speed) -> SetSpeed(speed)); 
-  //private DigitalInput LimitSwitch = new DigitalInput(RobotMap.Elevator.ELEVATOR_LIMIT_SWITCH.getValue());
+  private DigitalInput LimitSwitch = new DigitalInput(RobotMap.Elevator.ELEVATOR_LIMIT_SWITCH.getValue());
+  private DigitalInput LimitSwitch2 = new DigitalInput(RobotMap.Elevator.ELEVATOR_LIMIT_SWITCH2.getValue());
+
   private VictorSPX RightMotor = new VictorSPX(RobotMap.Elevator.ElevatorRight.getValue());
   private VictorSPX LeftMotor = new VictorSPX(RobotMap.Elevator.ElevatorLeft.getValue());
 
@@ -36,7 +38,6 @@ public class Elevator extends Subsystem
     RightMotor.setInverted(true);
     enc.setPIDSourceType(PIDSourceType.kDisplacement);
     enc.setMinRate(.1);
-    
   }
 
 //            PID Methods             //
@@ -45,19 +46,19 @@ public Double getCurrentPosition()
   return enc.getDistance();
 }
 
-  public void setKp(double Kp)
+  public void setKp(double kp)
   {
-    this.Kp = Kp; //setting the kp
+    this.kp = kp; //setting the kp
   }
 
-  public void setKi(double Ki)
+  public void setKi(double ki)
   {
-    this.Ki = Ki; //setting the ki
+    this.ki = ki; //setting the ki
   }
 
-  public void setKd(double Kd)
+  public void setKd(double kd)
   {
-    this.Kd = Kd; //setting the kd
+    this.kd = kd; //setting the kd
   }
 
   public void PIDsetSetpoint(int setpoint)
@@ -91,7 +92,7 @@ public Double getCurrentPosition()
   }
 
 //            Encoder Methods             //
-  public void EncoderReverse (boolean reverse) 
+  public void EncoderReverse(boolean reverse) 
   {
     enc.setReverseDirection(reverse); //checking if need to reverse the encoder direction
   }
@@ -100,19 +101,22 @@ public Double getCurrentPosition()
     return enc.get();
   }
 
+  public void EncoderReset(){
+     enc.reset();
+  }
+
 //            Motors Methods             //
   public void SetSpeed (double speed) 
   {
-    
     RightMotor.set(ControlMode.PercentOutput,speed);
     LeftMotor.set(ControlMode.PercentOutput,-speed);
   }
 
 //            LimitSwitch Methods             //
-  /*public boolean limitSwitch() 
+  public boolean limitSwitch() 
   {
     return LimitSwitch.get(); //getting mode from the limit switch
-  }*/
+  }
 
   @Override
   public void initDefaultCommand() 

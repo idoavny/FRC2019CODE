@@ -7,39 +7,25 @@
 
 package frc.robot.commands;
 
-
-
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.InstantCommand;
 import frc.robot.Robot;
 
-public class JoyStickCommand extends Command {
-  //comment
-  public JoyStickCommand() {
-    requires(Robot.drive);
+/**
+ * Add your docs here.
+ */
+public class ElevatorEncoderReset extends InstantCommand {
+  /**
+   * Add your docs here.
+   */
+  public ElevatorEncoderReset() {
+    super();
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
-@Override
-protected void initialize() {
-
-  }
-
+  // Called once when the command executes
   @Override
-  protected void execute() {
-    Robot.drive.setTankSpeed(-Robot.m_oi.rightJoy.getY(), Robot.m_oi.leftJoy.getY());
-  }
-
-  @Override
-  protected boolean isFinished() {
-    return false;
-  }
-
-  @Override
-  protected void end() {
-
-  }
-
-  @Override
-  protected void interrupted() {
-    Robot.drive.setTankSpeed(0, 0);
+  protected void initialize() {
+    Robot.elevator.EncoderReset();
   }
 }

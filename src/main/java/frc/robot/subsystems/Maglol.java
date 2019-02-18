@@ -27,38 +27,32 @@ import frc.robot.RobotMap;
 
 public class Maglol extends Subsystem 
 {
-  AnalogInput AI = new AnalogInput(RobotMap.Maglol.AnalogIn.getValue());  //TODO: put real analog input channel
-  Potentiometer pot = new AnalogPotentiometer(AI, Constants.fullrange, Constants.offSet); //TODO: put real values
+  //AnalogInput AI = new AnalogInput(RobotMap.Maglol.AnalogIn.getValue());  //TODO: put real analog input channel
+  Potentiometer pot = new AnalogPotentiometer(0, 360, 71.7);//TODO: put real values
 
   private TalonSRX pickMotor = new TalonSRX(RobotMap.Maglol.MAG_PICK.getValue());
-  private Talon motor2 = new Talon(RobotMap.Maglol.MAGLOL_RIGHT_ROATION.getValue());
-  private Talon motor3 = new Talon(RobotMap.Maglol.MAGLOL_LEFT_ROATION.getValue());
-
-  public void setSpeed(Double speed, int choice, Boolean reverse)
+  private Talon LefttMotor = new Talon(RobotMap.Maglol.MAGLOL_RIGHT_ROATION.getValue());
+  private Talon RightMotor = new Talon(RobotMap.Maglol.MAGLOL_LEFT_ROATION.getValue());
+ 
+  public void setPickSpeed(Double speed,boolean isReverse)
   {
-    if(!reverse){
-      switch(choice)
-      {
-        case 1:
-          pickMotor.set(ControlMode.PercentOutput, speed);
-          break;
-        case 2:
-          motor2.set(speed);
-          motor3.set(-speed);
-          break;
-      }
+    pickMotor.setInverted(isReverse);
+    pickMotor.set(ControlMode.PercentOutput, speed);
+  }
+
+  public double PotentiometerValue(){
+  return pot.get();
+  }
+
+  public void setSpeed(Double speed,boolean isReverse)
+  {
+    if(!isReverse){
+      LefttMotor.setSpeed(speed);
+      RightMotor.setSpeed(-speed); 
     }
-    else{
-      switch(choice)
-      {
-        case 1:
-          pickMotor.set(ControlMode.PercentOutput,-speed);
-          break;
-        case 2:
-          motor2.set(-speed);
-          motor3.set(speed);
-          break;
-      }
+    else {
+      LefttMotor.setSpeed(-speed);
+      RightMotor.setSpeed(speed);  
     }
   }
 

@@ -8,25 +8,33 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class MaglolCommand extends Command 
 {
+  private double speed;
   private boolean Pick;
   private boolean isReverse;
   private double DesiredAngle;
   private double currentAngle;
+  private boolean toAngle;
+  private boolean isPressed;
   public MaglolCommand() 
   {
     requires(Robot.maglol);
   }
 
-  public MaglolCommand(boolean Pick,boolean isReverse, double DesiredAngle) {
+  public MaglolCommand(boolean Pick,double speed, boolean isReverse) {
     this.Pick = Pick;
     this.isReverse = isReverse;
+    this.speed = speed;
+  }
+  public MaglolCommand(double DesiredAngle, boolean toAngle){
     this.DesiredAngle = DesiredAngle;
-
+    this.toAngle = toAngle;
+    this.speed = speed;
   }
 
   @Override
@@ -37,38 +45,31 @@ public class MaglolCommand extends Command
   @Override
   protected void execute() 
   {
-    if(Pick){
-      Robot.maglol.setSpeed(Constants.MagSpeed, 1, isReverse);
+    if(!Pick){
+      Robot.maglol.setSpeed(speed, isReverse);
+    }else{
+      Robot.maglol.setPickSpeed(speed, isReverse);
     }
-    else{
-      while(currentAngle != DesiredAngle){
-        if(currentAngle > DesiredAngle){
-          Robot.maglol.setSpeed(Constants.MagSpeed, 2, false);
-        }
-        else{
-          Robot.maglol.setSpeed(Constants.MagSpeed, 2, true);
-        }
-      }
-      setTimeout(Constants.MagTimeOut);
+    if(toAngle){
+       
     }
   }
 
   @Override
   protected boolean isFinished() 
   {
-    return isTimedOut();
+    return false;
   }
 
   @Override
   protected void end() 
   {
-    Robot.maglol.setSpeed(0.0, 2, false);
   }
 
   @Override
   protected void interrupted() 
   {
-    Robot.maglol.setSpeed(Constants.MagSpeedinterrapted, 2, false);
-    Robot.maglol.setSpeed(Constants.MagSpeedinterrapted, 1, false);
+    Robot.maglol.setPickSpeed(0.0, false);
+    Robot.maglol.setSpeed(0.0, false);
   }
 }

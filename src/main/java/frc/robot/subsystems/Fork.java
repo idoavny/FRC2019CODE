@@ -21,47 +21,39 @@ public class Fork extends Subsystem {
   private Talon motor2 = new Talon(RobotMap.Fork.HPmotor2.getValue());
   SpeedControllerGroup shoot = new SpeedControllerGroup(motor1, motor2);
   private Talon motor3 = new Talon(RobotMap.Fork.HPmotor3.getValue());
-  private Solenoid solenoid1 = new Solenoid(RobotMap.Fork.HPsolonoid1.getValue());
+  public Solenoid solenoid1 = new Solenoid(RobotMap.Fork.HPsolonoid1.getValue());
 
   public Fork() {
    motor2.setInverted(true);
- }
-  public void setSpeed(double speed, int motor, boolean reverse)
+  }
+
+  public void setShootSpeed(double speed, boolean reverse)
   {
-    if(reverse){
-        switch(motor){
-          case 0:
-          shoot.set(speed);
-          motor3.set(speed);
-          break;
-          case 1:
-          shoot.set(speed);
-          break;
-          case 2:
-          motor3.set(speed);
-        }
-      }
+    if(!reverse){
+      motor1.set(speed);
+      motor2.set(speed);  
+    }
     else{
-      switch(motor){
-        case 0:
-        shoot.set(-speed);
-        motor3.set(-speed);
-        break;
-        case 1:
-        shoot.set(-speed);
-        break;
-        case 2:
-        motor3.set(-speed);
-      }
-    } 
+      motor1.set(-speed);
+      motor2.set(-speed);
+    }
+
+  }
+
+  public void setOutSpeed(double speed, boolean reverse)
+  {
+    if(!reverse){
+      motor3.set(speed);
+    }
+    else{
+      motor3.set(-speed);
+    }
   }
   
   public void SetSelenoids(boolean mode)
   {
     solenoid1.set(mode);
   }
-  
- 
   
   @Override
   public void initDefaultCommand() 
