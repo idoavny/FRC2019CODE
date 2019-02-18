@@ -22,10 +22,12 @@ public class PID extends Command {
   private double SetPoint;
   private double M;
   private double I;
+  private double waitTime;
   
   public PID() {
     requires(Robot.elevator);
   }
+
 
   public PID(int level,boolean auto, boolean isReverse) {
     this.level = level;
