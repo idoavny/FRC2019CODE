@@ -12,13 +12,10 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.CommandGroups.PickShoot;
 import frc.robot.commands.ElevatorEncoderReset;
-import frc.robot.commands.ForkCommad;
 //import frc.robot.commands.ForkPiston;
 import frc.robot.commands.LImitswitch;
-import frc.robot.commands.MaglolCommand;
 import frc.robot.commands.PID;
 import frc.robot.commands.PneomaticCommand;
-import frc.robot.subsystems.Elevator;
 
 public class OI 
 {

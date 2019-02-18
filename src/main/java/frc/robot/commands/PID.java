@@ -7,9 +7,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
@@ -24,7 +22,6 @@ public class PID extends Command {
   private double SetPoint;
   private double M;
   private double I;
-  private double Rmax;
   
   public PID() {
     requires(Robot.elevator);
