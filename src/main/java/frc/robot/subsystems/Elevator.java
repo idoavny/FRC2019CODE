@@ -10,6 +10,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
@@ -20,6 +23,7 @@ import frc.robot.RobotMap;
 
 public class Elevator extends Subsystem 
 {
+
   private double kp;
   private double ki;
   private double kd;
@@ -27,14 +31,15 @@ public class Elevator extends Subsystem
   public Encoder enc = new Encoder(8, 9, false, EncodingType.k1X);
   public  PIDController pid  = new PIDController(kp, ki, kd, enc, (speed) -> SetSpeed(speed));
 
-  private DigitalInput LimitSwitch = new DigitalInput(RobotMap.Elevator.ELEVATOR_LIMIT_SWITCH.getValue());
-  private DigitalInput LimitSwitch2 = new DigitalInput(RobotMap.Elevator.ELEVATOR_LIMIT_SWITCH2.getValue());
+  private DigitalInput LimitSwitch = new DigitalInput(1);
+  private DigitalInput LimitSwitch2 = new DigitalInput(0);
 
   private VictorSPX RightMotor = new VictorSPX(RobotMap.Elevator.ElevatorRight.getValue());
   private VictorSPX LeftMotor = new VictorSPX(RobotMap.Elevator.ElevatorLeft.getValue());
 
   public Elevator()
   {
+   
     RightMotor.setInverted(true);
     enc.setPIDSourceType(PIDSourceType.kDisplacement);
     enc.setMinRate(.1);

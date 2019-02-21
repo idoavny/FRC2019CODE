@@ -14,23 +14,15 @@ import frc.robot.commands.MaglolCommand;
 import frc.robot.commands.delay;
 
 public class PickShoot extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
-  private int Mode;
-  private int Timer;
-
   public PickShoot(){
     requires(Robot.fork);
     requires(Robot.maglol);
   }
 
-  public PickShoot(int Mode,int Timer){
-    this.Mode = Mode;
-    this.Timer = Timer;
+  public PickShoot(int Mode,double Timer){
     switch(Mode){
       case 0:
-      addParallel(new MaglolCommand(true, 0.35, true));
+      addParallel(new MaglolCommand(true, 0.3, true));
       addParallel(new ForkCommad(true, true, 0.7));
       addParallel(new ForkCommad(false, false, 0.6));
       break;

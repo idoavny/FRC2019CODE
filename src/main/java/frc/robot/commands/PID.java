@@ -8,12 +8,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class PID extends Command {
   private boolean Auto;
-  private boolean isReverse;
+  public boolean isReverse;
   private int level;
   private double E;
   private double SumE = 0;
@@ -22,73 +23,87 @@ public class PID extends Command {
   private double SetPoint;
   private double M;
   private double I;
-  private double waitTime;
+  private String mode;  
   
   public PID() {
     requires(Robot.elevator);
   }
 
-
-  public PID(int level,boolean auto, boolean isReverse) {
+  public PID(String mode, int level,boolean auto, boolean isReverse, double SetPoint) {
     this.level = level;
     this.Auto = auto;
     this.isReverse = isReverse;
+    this.mode = mode;
+    this.SetPoint = SetPoint;
   }
-
- 
 
   @Override
   protected void initialize() {
+  switch(mode){
+    case "Ball":
     switch(level)
     {
-      case 0:
-      SetPoint = 0;
-      break;
-
       case 1:
       SetPoint = 2000;
       break;
 
       case 2:
-      SetPoint = 2000;
+      SetPoint = 6000;
       break;
 
       case 3:
-      SetPoint = 2000;
-      break;
-
-      case 4:
-      SetPoint = 2000;
-      break;
-
-      case 5:
-      SetPoint = 2000;
-      break;
-
-      case 6:
-      SetPoint = 2000;
+      SetPoint = 8000;
       break;
     }
+    break;
+
+    case "Hatch":
+    switch(level)
+    {
+      case 1:
+      SetPoint = 0;
+      break;
+
+      case 2:
+      SetPoint = 4000;
+      break;
+
+      case 3:
+      SetPoint = 8000;
+      break;
+    }
+    break;
+  }
+    
     P = Constants.PIDconstants.P.Value();
     I = Constants.PIDconstants.I.Value();
   }
   
   @Override
   protected void execute() {
+    SmartDashboard.putNumber("desiredPosition", SetPoint);
     if(Auto){
       CurrentPosition = Robot.elevator.EncoderPulses();
       E = (CurrentPosition-SetPoint)/8000;
       SumE = SumE + E;
       M = P*E + SumE*I;
+      
       Robot.elevator.SetSpeed(-M);
     }
-   else{
-     if(!isReverse){
-      Robot.elevator.SetSpeed(0.7);
-     }else{
+    else{
+      if(!isReverse){
+        Robot.elevator.SetSpeed(0.6);
+      }
+      else{
       Robot.elevator.SetSpeed(-0.4);
-     }
-   }
+      }
+    }
+   if(Robot.elevator.limitSwitch() && Robot.elevator.limitSwitch2()){
+ //   Robot.elevator.EncoderReset();
+    if(isReverse){
+      Robot.elevator.SetSpeed(0);
+    }
+      }
   }
 
   @Override
@@ -103,9 +118,5 @@ public class PID extends Command {
   @Override
   protected void interrupted() {
     Robot.elevator.SetSpeed(0);
-  }
-
-  public double getValue(){
-    return -M;
   }
 }

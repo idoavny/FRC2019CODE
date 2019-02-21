@@ -8,27 +8,32 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.HatchSolenoids;
+import frc.robot.commands.delay;
 
 public class HatchHook extends CommandGroup {
-  /**
-   * Add your docs here.
-   */
-  public HatchHook() {
-    // Add Commands here:
-    // e.g. addSequential(new Command1());
-    // addSequential(new Command2());
-    // these will run in order.
+  
+  public HatchHook(String Mode) {
+    switch(Mode){
+      case "intake":
+      addParallel(new HatchSolenoids("IntakeUpDown", true));
+      addSequential(new delay(0.2));
+      addParallel(new HatchSolenoids("hatchIntake",true));
+      addSequential(new delay(0.5));
+      addParallel(new HatchSolenoids("IntakeUpDown", false));
+      addSequential(new delay(0.5));
+      addParallel(new HatchSolenoids("hatchIntake", false));
+      break;
 
-    // To run multiple commands at the same time,
-    // use addParallel()
-    // e.g. addParallel(new Command1());
-    // addSequential(new Command2());
-    // Command1 and Command2 will run in parallel.
+      case "outtake":
+      addParallel(new HatchSolenoids("hatchIntake",true));
+      addSequential(new delay(0.5));
+      addParallel(new HatchSolenoids("IntakeUpDown", true));
+      addSequential(new delay(0.5));
+      addParallel(new HatchSolenoids("hatchIntake", false));
+      break;
 
-    // A command group will require all of the subsystems that each member
-    // would require.
-    // e.g. if Command1 requires chassis, and Command2 requires arm,
-    // a CommandGroup containing them would require both the chassis and the
-    // arm.
+    }
+    
   }
 }

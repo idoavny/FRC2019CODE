@@ -17,16 +17,16 @@ public class ForkCommad extends Command {
   private boolean Shoot;
   private double speed;
   private boolean isReverse;
+  private boolean solenoidCommandMode;
+  private boolean mode;
+  private int solenoidNum;
+
+
 
   public ForkCommad() {
     requires(Robot.fork);
   }
-  public ForkCommad(int timeOut, boolean Shoot,boolean isReverse,double speed){
-    setTimeout(2);
-    this.Shoot = Shoot;
-    this.isReverse = isReverse;
-    this.speed = speed;
-  }
+ 
   public ForkCommad(boolean Shoot, boolean isReverse, double speed)
   {
     this.Shoot = Shoot;
@@ -60,13 +60,13 @@ public class ForkCommad extends Command {
   @Override
   protected void end() 
   {
-    Robot.fork.setShootSpeed(0, false);
 
   }
 
   @Override
   protected void interrupted() 
   {
+    
     Robot.fork.setShootSpeed(0.0,true);
     Robot.fork.setOutSpeed(0.0, true);
   }

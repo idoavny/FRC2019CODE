@@ -9,14 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-
-public class PneomaticCommand extends Command {
-  boolean set;
-  public PneomaticCommand(boolean set) {
-    this.set = set;
-    requires(Robot.pneo);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class HatchSolenoids extends Command {
+  boolean mode;
+  String solenoid;
+  public HatchSolenoids(){
+    requires(Robot.hatchPanel);
+  }
+  public HatchSolenoids(String solenoid,boolean mode) {
+  this.mode = mode;
+  this.solenoid = solenoid;
   }
 
   // Called just before this Command runs the first time
@@ -27,7 +28,7 @@ public class PneomaticCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.pneo.setSolenoid(set);
+    Robot.hatchPanel.setSolenoid(solenoid, mode);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -45,6 +46,8 @@ public class PneomaticCommand extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.pneo.setSolenoid(false);
+    if(Robot.m_oi.OpenForkPiston.get()){Robot.hatchPanel.setSolenoid("hatchIntake", false);}
+    if(Robot.m_oi.CloseForkPiston.get()){Robot.hatchPanel.setSolenoid("IntakeUpDown", false);}
+
   }
 }

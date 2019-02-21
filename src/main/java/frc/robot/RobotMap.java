@@ -70,7 +70,8 @@ private int value;
 
 public enum Fork
 {
-HPsolonoid1(4),
+HPsolonoid1(3),
+HPsolonoid2(2),
 Shooter_Motor(13),
 HPmotor1(2),
 HPmotor2(0),
@@ -94,7 +95,7 @@ public enum Elevator
 ElevatorRight(42),
 ElevatorLeft(19),
 ELEVATOR_LIMIT_SWITCH(6),
-ELEVATOR_LIMIT_SWITCH2(2);
+ELEVATOR_LIMIT_SWITCH2(0);
 private int value;
  Elevator(int value)
  {
@@ -108,8 +109,8 @@ private int value;
 
 //              HatchPanel
 public enum HatchPanel{
-   solenoidPort(5),
-   TalonPWM(19);
+   port1(2),
+   port2(7);
    private int value;
    HatchPanel(int value){
        this.value = value;

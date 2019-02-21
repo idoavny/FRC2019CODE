@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+/*package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -36,7 +36,7 @@ public class LImitswitch extends Command {
       Robot.elevator.SetSpeed(0.2);
       Robot.elevator.EncoderReset();
     }
-  }*/
+  }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
@@ -56,3 +56,4 @@ public class LImitswitch extends Command {
     Robot.elevator.SetSpeed(0);
   }
 }
+*/

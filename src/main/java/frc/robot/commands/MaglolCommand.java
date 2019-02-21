@@ -32,7 +32,6 @@ public class MaglolCommand extends Command
   public MaglolCommand(double DesiredAngle, boolean toAngle){
     this.DesiredAngle = DesiredAngle;
     this.toAngle = toAngle;
-    this.speed = speed;
   }
 
   @Override

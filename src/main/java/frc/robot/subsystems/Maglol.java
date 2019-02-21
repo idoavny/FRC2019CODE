@@ -46,11 +46,11 @@ public class Maglol extends Subsystem
   {
     if(!isReverse){
       LefttMotor.setSpeed(speed);
-      RightMotor.setSpeed(-speed); 
+      RightMotor.setSpeed(speed); 
     }
     else {
       LefttMotor.setSpeed(-speed);
-      RightMotor.setSpeed(speed);  
+      RightMotor.setSpeed(-speed);  
     }
   }
 

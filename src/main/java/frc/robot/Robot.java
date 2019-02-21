@@ -12,7 +12,10 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
-
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -21,22 +24,25 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutonomusCommand;
+import frc.robot.commands.ElevatorEncoderReset;
+import frc.robot.commands.PID;
 import frc.robot.subsystems.Autonomus;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Fork;
+import frc.robot.subsystems.HatchPanel;
 import frc.robot.subsystems.Maglol;
 //testing branches
-import frc.robot.subsystems.Pneomatics;
 public class Robot extends TimedRobot 
 {
-  public static Pneomatics pneo;
   public double kp ;
   public double ki;
   public double kd;
   public double downKp;
   public double downKi;
   public double downKd;
+  public int  Level = 0;
+
   public static Autonomus m_subsystem = new Autonomus();
   public static OI m_oi;
   public static Maglol maglol;
@@ -45,9 +51,8 @@ public class Robot extends TimedRobot
   public AHRS navxTesting;
   public static Elevator elevator;
   public Preferences pref;
-
-  //public PID pid;
-
+  public Compressor comp;
+  public static HatchPanel hatchPanel;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -56,10 +61,10 @@ public class Robot extends TimedRobot
   public void robotInit() 
   {
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-    camera.setResolution(640 , 480);
-
-    pneo = new Pneomatics();
-   //pid = new PID();
+    hatchPanel = new HatchPanel();
+    camera.setFPS(30);
+    comp = new Compressor();
+    comp.setClosedLoopControl(true);
     navxTesting = new AHRS(SPI.Port.kMXP);
     drive = new DriveTrain();
     fork = new Fork();
@@ -76,13 +81,10 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic()
   {
-
-    if(Robot.elevator.limitSwitch() && Robot.elevator.limitSwitch2()){
-      Robot.elevator.EncoderReset();
-    }
-    SmartDashboard.putNumber("Potentiometer", Robot.maglol.PotentiometerValue());
-    SmartDashboard.putBoolean("SW", Robot.elevator.limitSwitch());
-    SmartDashboard.putNumber("Elevator Encoder", elevator.EncoderPulses());
+    SmartDashboard.putData("EncoderReset", new ElevatorEncoderReset());
+    SmartDashboard.putBoolean("LimitSwitche", Robot.elevator.limitSwitch());
+    SmartDashboard.putBoolean("LimitSwitche2", Robot.elevator.limitSwitch2());
+    SmartDashboard.putNumber("ElevatorEncoder", Robot.elevator.enc.get());
   }
 
   @Override
