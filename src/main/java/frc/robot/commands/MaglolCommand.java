@@ -37,6 +37,7 @@ public class MaglolCommand extends Command
   @Override
   protected void initialize() 
   {
+
   }
 
   @Override
@@ -44,7 +45,8 @@ public class MaglolCommand extends Command
   {
     if(!Pick){
       Robot.maglol.setSpeed(speed, isReverse);
-    }else{
+    }
+    else{
       Robot.maglol.setPickSpeed(speed, isReverse);
     }
     if(toAngle){

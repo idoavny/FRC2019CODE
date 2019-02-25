@@ -20,6 +20,7 @@ public class HatchPanel extends Subsystem {
       case "hatchIntake":
       hatchIntake.set(Mode);
       break;
+ 
       case "IntakeUpDown":
       IntakeUpDown.set(Mode);
       break;

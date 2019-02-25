@@ -21,6 +21,7 @@ public class Elevetor extends CommandGroup {
       switch(upOrDown){
         case "up":
         ++setPoint;
+        
         break;
         case "down":
         setPoint = 1000;
@@ -31,9 +32,8 @@ public class Elevetor extends CommandGroup {
 
       addParallel(new delay(0.3));
       SmartDashboard.putNumber("SetPoint", setPoint);
-
     }
-    
+
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -50,5 +50,4 @@ public class Elevetor extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
-  }
-
+}

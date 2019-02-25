@@ -12,17 +12,20 @@ import frc.robot.Robot;
 public class HatchSolenoids extends Command {
   boolean mode;
   String solenoid;
+  
   public HatchSolenoids(){
     requires(Robot.hatchPanel);
   }
-  public HatchSolenoids(String solenoid,boolean mode) {
-  this.mode = mode;
-  this.solenoid = solenoid;
+
+  public HatchSolenoids(String solenoid, boolean mode) {
+    this.solenoid = solenoid;
+    this.mode = mode;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+  
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -46,8 +49,7 @@ public class HatchSolenoids extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    if(Robot.m_oi.OpenForkPiston.get()){Robot.hatchPanel.setSolenoid("hatchIntake", false);}
-    if(Robot.m_oi.CloseForkPiston.get()){Robot.hatchPanel.setSolenoid("IntakeUpDown", false);}
-
+    if(Robot.m_oi.OpenForkPiston.get()){  Robot.hatchPanel.setSolenoid("hatchIntake", false);}
+    if(Robot.m_oi.CloseForkPiston.get()){ Robot.hatchPanel.setSolenoid("IntakeUpDown", false);}
   }
 }

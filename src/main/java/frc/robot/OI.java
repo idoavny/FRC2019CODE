@@ -37,10 +37,10 @@ public class OI
   //              Shotter buttons
   Button ShooterButton = new JoystickButton(leftJoy, 2);
 
-//              HatchPanel buttons
-Button fork1 = new JoystickButton(ButtonJoy, 1);
-Button fork2 = new JoystickButton(ButtonJoy, 2);
-Button fork3 = new JoystickButton(ButtonJoy, 3);
+  //              HatchPanel buttons
+  Button fork1 = new JoystickButton(ButtonJoy, 1);
+  Button fork2 = new JoystickButton(ButtonJoy, 2);
+  Button fork3 = new JoystickButton(ButtonJoy, 3);
 
 
   //              Elevator buttons
@@ -61,46 +61,40 @@ Button fork3 = new JoystickButton(ButtonJoy, 3);
   public Button MaglolButton1 = new JoystickButton(ButtonJoy, 13);
   public Button MaglolButton2 = new JoystickButton(ButtonJoy, 14);
 
-    //              Fork Buttons
+  //              Fork Buttons
 
   public Button OpenForkPiston = new JoystickButton(ButtonJoy, 3);
   public Button CloseForkPiston = new JoystickButton(ButtonJoy, 4);
 
-public OI()
-{
-   //ElevatorUp.whileHeld(new Elevetor("up"));
-   //ElevatorDown.whileHeld(new Elevetor("down"));
-   ElevatorUp.whileHeld(new PID("Ball", 0, false, false, 0));
-   ElevatorDown.whileHeld(new PID("Ball", 0, false, true, 0));
-  
-   elevatorBallPID0.toggleWhenPressed(new PID("Ball",1, true, false,0));
-   elevatorBallPID1.toggleWhenPressed(new PID("Ball",2, true, false,0));
-   elevatorBallPID2.toggleWhenPressed(new PID("Ball",3, true, false,0));
-   elevatorHatchPID.toggleWhenPressed(new PID("Hatch", 1, true, false,0));
-   elevatorHatchPID1.toggleWhenPressed(new PID("Hatch", 2, true, false,0));
-   elevatorHatchPID2.toggleWhenPressed(new PID("Hatch", 3, true, false,0));
+  public OI()
+  {
+    //ElevatorUp.whileHeld(new Elevetor("up"));
+    //ElevatorDown.whileHeld(new Elevetor("down"));
+    ElevatorUp.whileHeld(new PID("Ball", 0, false, false, 0));
+    ElevatorDown.whileHeld(new PID("Ball", 0, false, true, 0));
+    
+    elevatorBallPID0.toggleWhenPressed(new PID("Ball",1, true, false,0));
+    elevatorBallPID1.toggleWhenPressed(new PID("Ball",2, true, false,0));
+    elevatorBallPID2.toggleWhenPressed(new PID("Ball",3, true, false,0));
+    elevatorHatchPID.toggleWhenPressed(new PID("Hatch", 1, true, false,0));
+    elevatorHatchPID1.toggleWhenPressed(new PID("Hatch", 2, true, false,0));
+    elevatorHatchPID2.toggleWhenPressed(new PID("Hatch", 3, true, false,0));
 
-   forkButton.whileHeld(new PickShoot(0, 0.5));
-   forkButton2.whileHeld(new PickShoot(1, 1));
+    forkButton.whileHeld(new PickShoot(0, 0.5));
+    forkButton2.whileHeld(new PickShoot(1, 1));
 
-   MaglolButton1.whileHeld(new MaglolCommand(false, 0.5, true));
-   MaglolButton2.whileHeld(new MaglolCommand(false, 0.5, false));
-   
-   OpenForkPiston.toggleWhenPressed(new HatchSolenoids("hatchIntake",true));
-   CloseForkPiston.toggleWhenPressed(new HatchSolenoids("IntakeUpDown" , true));
+    MaglolButton1.whileHeld(new MaglolCommand(false, 0.5, true));
+    MaglolButton2.whileHeld(new MaglolCommand(false, 0.5, false));
+    
+    OpenForkPiston.toggleWhenPressed(new HatchSolenoids("hatchIntake",true));
+    CloseForkPiston.toggleWhenPressed(new HatchSolenoids("IntakeUpDown" , true));
 
-   //OpenForkPiston.toggleWhenPressed(new HatchHook("intake"));
-   //CloseForkPiston.toggleWhenPressed(new HatchHook("outtake"));
-
-
-  
-   
-
-   
+    //OpenForkPiston.toggleWhenPressed(new HatchHook("intake"));
+    //CloseForkPiston.toggleWhenPressed(new HatchHook("outtake"));
 
 
 
-//fork1.toggleWhenPressed(new ForkCommad("pick"));
-//fork2.toggleWhenPressed(new ForkCommad("release"));
-}
+  //fork1.toggleWhenPressed(new ForkCommad("pick"));
+  //fork2.toggleWhenPressed(new ForkCommad("release"));
+  }
 }

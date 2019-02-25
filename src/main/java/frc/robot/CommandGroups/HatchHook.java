@@ -32,8 +32,6 @@ public class HatchHook extends CommandGroup {
       addSequential(new delay(0.5));
       addParallel(new HatchSolenoids("hatchIntake", false));
       break;
-
     }
-    
   }
 }

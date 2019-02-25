@@ -10,9 +10,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
@@ -23,7 +20,6 @@ import frc.robot.RobotMap;
 
 public class Elevator extends Subsystem 
 {
-
   private double kp;
   private double ki;
   private double kd;
@@ -39,17 +35,16 @@ public class Elevator extends Subsystem
 
   public Elevator()
   {
-   
     RightMotor.setInverted(true);
     enc.setPIDSourceType(PIDSourceType.kDisplacement);
     enc.setMinRate(.1);
   }
 
 //            PID Methods             //
-public Double getCurrentPosition()
-{
-  return enc.getDistance();
-}
+  public Double getCurrentPosition()
+  {
+    return enc.getDistance();
+  }
 
   public void setKp(double kp)
   {
@@ -107,7 +102,7 @@ public Double getCurrentPosition()
   }
 
   public void EncoderReset(){
-     enc.reset();
+    enc.reset();
   }
 
 //            Motors Methods             //
@@ -133,4 +128,4 @@ public Double getCurrentPosition()
   {
     
   }
-}      
+}

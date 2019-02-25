@@ -19,7 +19,7 @@ public class PickShoot extends CommandGroup {
     requires(Robot.maglol);
   }
 
-  public PickShoot(int Mode,double Timer){
+  public PickShoot(int Mode, double Timer){
     switch(Mode){
       case 0:
       addParallel(new MaglolCommand(true, 0.3, true));
@@ -31,9 +31,7 @@ public class PickShoot extends CommandGroup {
       addParallel(new ForkCommad(true, false ,0.7));
       addSequential(new delay(Timer));
       addParallel(new ForkCommad(false, true, 0.5));
-
       break;
     }
- 
   }
 }

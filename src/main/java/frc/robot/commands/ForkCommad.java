@@ -49,8 +49,8 @@ public class ForkCommad extends Command {
     else{
       Robot.fork.setOutSpeed(speed, isReverse);
     }
-  
   }
+
   @Override
   protected boolean isFinished() 
   {
@@ -65,9 +65,8 @@ public class ForkCommad extends Command {
 
   @Override
   protected void interrupted() 
-  {
-    
-    Robot.fork.setShootSpeed(0.0,true);
+  {  
+    Robot.fork.setShootSpeed(0.0, true);
     Robot.fork.setOutSpeed(0.0, true);
   }
 }

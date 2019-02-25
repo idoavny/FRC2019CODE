@@ -13,8 +13,8 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class PID extends Command {
-  private boolean Auto;
   public boolean isReverse;
+  private boolean Auto;
   private int level;
   private double E;
   private double SumE = 0;
@@ -29,11 +29,11 @@ public class PID extends Command {
     requires(Robot.elevator);
   }
 
-  public PID(String mode, int level,boolean auto, boolean isReverse, double SetPoint) {
+  public PID(String mode, int level, boolean auto, boolean isReverse, double SetPoint) {
+    this.mode = mode;
     this.level = level;
     this.Auto = auto;
     this.isReverse = isReverse;
-    this.mode = mode;
     this.SetPoint = SetPoint;
   }
 
@@ -98,12 +98,12 @@ public class PID extends Command {
       Robot.elevator.SetSpeed(-0.4);
       }
     }
-   if(Robot.elevator.limitSwitch() && Robot.elevator.limitSwitch2()){
- //   Robot.elevator.EncoderReset();
-    if(isReverse){
-      Robot.elevator.SetSpeed(0);
-    }
+    if(Robot.elevator.limitSwitch() && Robot.elevator.limitSwitch2()){
+  //  Robot.elevator.EncoderReset();
+      if(isReverse){
+        Robot.elevator.SetSpeed(0);
       }
+    }
   }
 
   @Override
