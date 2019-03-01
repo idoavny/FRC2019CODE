@@ -16,8 +16,10 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -53,6 +55,8 @@ public class Robot extends TimedRobot
   public Preferences pref;
   public Compressor comp;
   public static HatchPanel hatchPanel;
+  public static DigitalInput LimitSwitch;
+    public static DigitalInput LimitSwitch2;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -72,6 +76,7 @@ public class Robot extends TimedRobot
     elevator  = new Elevator();
     // CameraServer.getInstance().startAutomaticCapture();
     m_oi = new OI();
+    
 
     m_chooser.setDefaultOption("Default Auto", new AutonomusCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
@@ -81,9 +86,9 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic()
   {
+    SmartDashboard.putBoolean("LimitSwitch", !Robot.elevator.LimitSwitch.get());
+    SmartDashboard.putBoolean("LimitSwitch2", Robot.elevator.LimitSwitch2.get());
     SmartDashboard.putData("EncoderReset", new ElevatorEncoderReset());
-    SmartDashboard.putBoolean("LimitSwitche", Robot.elevator.limitSwitch());
-    SmartDashboard.putBoolean("LimitSwitche2", Robot.elevator.limitSwitch2());
     SmartDashboard.putNumber("ElevatorEncoder", Robot.elevator.enc.get());
   }
 

@@ -98,8 +98,9 @@ public class PID extends Command {
       Robot.elevator.SetSpeed(-0.4);
       }
     }
-    if(Robot.elevator.limitSwitch() && Robot.elevator.limitSwitch2()){
-  //  Robot.elevator.EncoderReset();
+    if(!Robot.elevator.limitSwitch() && Robot.elevator.limitSwitch2())
+    {
+      Robot.elevator.EncoderReset();
       if(isReverse){
         Robot.elevator.SetSpeed(0);
       }

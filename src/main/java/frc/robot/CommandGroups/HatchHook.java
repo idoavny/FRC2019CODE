@@ -14,6 +14,7 @@ import frc.robot.commands.delay;
 public class HatchHook extends CommandGroup {
   
   public HatchHook(String Mode) {
+    
     switch(Mode){
       case "intake":
       addParallel(new HatchSolenoids("IntakeUpDown", true));

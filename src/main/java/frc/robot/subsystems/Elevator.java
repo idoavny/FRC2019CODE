@@ -27,11 +27,11 @@ public class Elevator extends Subsystem
   public Encoder enc = new Encoder(8, 9, false, EncodingType.k1X);
   public  PIDController pid  = new PIDController(kp, ki, kd, enc, (speed) -> SetSpeed(speed));
 
-  private DigitalInput LimitSwitch = new DigitalInput(1);
-  private DigitalInput LimitSwitch2 = new DigitalInput(0);
-
   private VictorSPX RightMotor = new VictorSPX(RobotMap.Elevator.ElevatorRight.getValue());
   private VictorSPX LeftMotor = new VictorSPX(RobotMap.Elevator.ElevatorLeft.getValue());
+
+  public DigitalInput LimitSwitch = new DigitalInput(4);
+  public DigitalInput LimitSwitch2 = new DigitalInput(0);
 
   public Elevator()
   {
