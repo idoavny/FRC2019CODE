@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 import frc.robot.RobotMap;
+import frc.robot.commands.MaglolCommand;
 /*** 
  Maglol Subsystem:
 
@@ -42,16 +43,13 @@ public class Maglol extends Subsystem
   return pot.get();
   }
 
-  public void setSpeed(Double speed,boolean isReverse)
+  public void setSpeed(Double speed)
   {
-    if(!isReverse){
+    
       LefttMotor.setSpeed(speed);
       RightMotor.setSpeed(speed); 
-    }
-    else {
-      LefttMotor.setSpeed(-speed);
-      RightMotor.setSpeed(-speed);  
-    }
+   
+      
   }
 
   public double  getAngle() {
@@ -61,6 +59,6 @@ public class Maglol extends Subsystem
   @Override
   public void initDefaultCommand() 
   {
-   
+    setDefaultCommand(new MaglolCommand());
   }
 }

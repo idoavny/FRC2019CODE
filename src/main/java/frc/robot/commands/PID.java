@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
@@ -15,7 +17,6 @@ import frc.robot.Robot;
 public class PID extends Command {
   public boolean isReverse;
   private boolean Auto;
-  private int level;
   private double E;
   private double SumE = 0;
   private double P;
@@ -24,57 +25,59 @@ public class PID extends Command {
   private double M;
   private double I;
   private String mode;  
+  private int level;
+  public int count;
+
+  private static int previousPov = 0;
   
   public PID() {
     requires(Robot.elevator);
   }
 
-  public PID(String mode, int level, boolean auto, boolean isReverse, double SetPoint) {
+  public PID(String mode,int level, boolean auto, boolean isReverse) {
+    requires(Robot.elevator);
     this.mode = mode;
     this.level = level;
     this.Auto = auto;
     this.isReverse = isReverse;
-    this.SetPoint = SetPoint;
   }
 
   @Override
   protected void initialize() {
-  switch(mode){
-    case "Ball":
-    switch(level)
-    {
-      case 1:
-      SetPoint = 2000;
-      break;
+    switch(mode){
+      case "Ball":
+      switch(level)
+      {
 
-      case 2:
-      SetPoint = 6000;
-      break;
+        case 1:
+        SetPoint = 1950;
+        break;
 
-      case 3:
-      SetPoint = 8000;
+        case 2:
+        SetPoint = 6050;
+        break;
+  
+        case 3:
+        SetPoint = 8800;
+        break;
+     
+      }
       break;
+      case "Hatch":
+      switch(level){
+        case 1:
+        SetPoint = 0;
+        break;
+  
+        case 2:
+        SetPoint = 3859;
+        break;
+  
+        case 3:
+        SetPoint = 8000;
+        break;
+      }
     }
-    break;
-
-    case "Hatch":
-    switch(level)
-    {
-      case 1:
-      SetPoint = 0;
-      break;
-
-      case 2:
-      SetPoint = 4000;
-      break;
-
-      case 3:
-      SetPoint = 8000;
-      break;
-    }
-    break;
-  }
-    
     P = Constants.PIDconstants.P.Value();
     I = Constants.PIDconstants.I.Value();
   }
@@ -89,24 +92,41 @@ public class PID extends Command {
       M = P*E + SumE*I;
       
       Robot.elevator.SetSpeed(-M);
-    }
+      }
     else{
-      if(!isReverse){
-        Robot.elevator.SetSpeed(0.6);
-      }
-      else{
-      Robot.elevator.SetSpeed(-0.4);
-      }
-    }
+      double speed;
+     if(isReverse){
+       speed = -0.4;
+      Robot.elevator.SetSpeed(speed);
+     }else{
+       speed = 0.6;
+      Robot.elevator.SetSpeed(speed);
+     }
     if(!Robot.elevator.limitSwitch() && Robot.elevator.limitSwitch2())
     {
+      count = 0;
+      Robot.elevator.EncoderReset();
+      if(speed < 0){
+        Robot.elevator.SetSpeed(0);
+
+      }
+      }
+      
+      
+     
+    
+    SmartDashboard.putNumber("Elevator Count",count);
+   /* if(!Robot.elevator.limitSwitch() && Robot.elevator.limitSwitch2())
+    {
+      count = 0;
       Robot.elevator.EncoderReset();
       if(isReverse){
         Robot.elevator.SetSpeed(0);
       }
-    }
+    }*/
   }
-
+}
+  
   @Override
   protected boolean isFinished() {
     return false;

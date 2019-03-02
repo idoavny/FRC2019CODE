@@ -43,15 +43,13 @@ public class MaglolCommand extends Command
   @Override
   protected void execute() 
   {
-    if(!Pick){
-      Robot.maglol.setSpeed(speed, isReverse);
-    }
-    else{
+    if(Pick){
       Robot.maglol.setPickSpeed(speed, isReverse);
     }
-    if(toAngle){
-       
-    }
+    Robot.maglol.setSpeed(Robot.m_oi.ButtonJoy.getY()*0.5);
+     
+    
+
   }
 
   @Override
@@ -69,6 +67,6 @@ public class MaglolCommand extends Command
   protected void interrupted() 
   {
     Robot.maglol.setPickSpeed(0.0, false);
-    Robot.maglol.setSpeed(0.0, false);
+    Robot.maglol.setSpeed(0.0);
   }
 }

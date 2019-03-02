@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.PID;
 
 public class Elevator extends Subsystem 
 {
@@ -27,10 +28,10 @@ public class Elevator extends Subsystem
   public Encoder enc = new Encoder(8, 9, false, EncodingType.k1X);
   public  PIDController pid  = new PIDController(kp, ki, kd, enc, (speed) -> SetSpeed(speed));
 
-  private VictorSPX RightMotor = new VictorSPX(RobotMap.Elevator.ElevatorRight.getValue());
-  private VictorSPX LeftMotor = new VictorSPX(RobotMap.Elevator.ElevatorLeft.getValue());
+  public VictorSPX RightMotor = new VictorSPX(RobotMap.Elevator.ElevatorRight.getValue());
+  public VictorSPX LeftMotor = new VictorSPX(RobotMap.Elevator.ElevatorLeft.getValue());
 
-  public DigitalInput LimitSwitch = new DigitalInput(4);
+  public DigitalInput LimitSwitch = new DigitalInput(7);
   public DigitalInput LimitSwitch2 = new DigitalInput(0);
 
   public Elevator()
@@ -126,6 +127,6 @@ public class Elevator extends Subsystem
   @Override
   public void initDefaultCommand() 
   {
-    
+  
   }
 }

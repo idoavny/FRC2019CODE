@@ -9,26 +9,29 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
-public class HatchPanel extends Subsystem {
-  Solenoid hatchIntake = new Solenoid(RobotMap.HatchPanel.port1.getValue());
-  Solenoid IntakeUpDown = new Solenoid(RobotMap.HatchPanel.port2.getValue());
+/**
+ * Add your docs here.
+ */
+public class Hatch extends Subsystem {
+ public Solenoid solenoid1 = new Solenoid(RobotMap.HatchPanel.port1.getValue());
+ public Solenoid solenoid2 = new Solenoid(RobotMap.HatchPanel.port2.getValue());
 
-  public void setSolenoid(String Solenoid, boolean Mode){
-    switch(Solenoid){
-      case "hatchIntake":
-      hatchIntake.set(Mode);
-      break;
- 
-      case "IntakeUpDown":
-      IntakeUpDown.set(Mode);
-      break;
-    }
-  }
+
+public void setSolenoid1(boolean mode) {
+  solenoid1.set(mode);
+}
+public void setSolenoid2(boolean mode) {
+  solenoid2.set(mode);
+}
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
 
   @Override
   public void initDefaultCommand() {
-  
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
   }
 }
