@@ -35,6 +35,8 @@ public JoyStickCommand(double speed){
   @Override
   protected void execute() {
 
+   // Robot.drive.setTankSpeed((1-Robot.m_oi.RT)*Robot.m_oi.,(1-1-Robot.m_oi.LT)*-Robot.m_oi.speed);
+    
     leftSpeed = Robot.m_oi.leftJoy.getY();
     RightSpeed = Robot.m_oi.rightJoy.getY();
 
@@ -42,20 +44,21 @@ public JoyStickCommand(double speed){
       isPressed = !isPressed;
     }
     if(isPressed){
+      Robot.drive.setTankSpeed(leftSpeed, -RightSpeed);
+      if(mode == "Slow"){
+        Robot.drive.setTankSpeed(leftSpeed*0.5, -RightSpeed*0.5);
+      }
+    }
+    else{
       Robot.drive.setTankSpeed(-RightSpeed, leftSpeed);
       if(mode == "Slow"){
         Robot.drive.setTankSpeed(RightSpeed*0.5, -leftSpeed*0.5);
       }
     }
-    else{
-      Robot.drive.setTankSpeed(leftSpeed, -RightSpeed);
-      if(mode == "Slow"){
-        Robot.drive.setTankSpeed(-leftSpeed*0.5, RightSpeed*0.5);
-      }
-    }
 
     SmartDashboard.putNumber("RightSpeed", RightSpeed);
     SmartDashboard.putNumber("LefttSpeed", leftSpeed);
+  
   }
     
 

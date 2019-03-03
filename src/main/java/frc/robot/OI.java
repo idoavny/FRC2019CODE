@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
@@ -25,7 +26,7 @@ import frc.robot.commands.PID;
 public class OI 
 {
   //              JoySticks
-  XboxController xbox = new XboxController(2);
+  XboxController xbox = new XboxController(0);
   public Joystick rightJoy = new Joystick(0);
   public Joystick leftJoy = new Joystick(1);
   public Joystick ButtonJoy = new Joystick(2);
@@ -72,6 +73,10 @@ public class OI
 
   public Button OpenForkPiston = new JoystickButton(ButtonJoy, 3);
   public Button CloseForkPiston = new JoystickButton(ButtonJoy, 4);
+
+  public double speed = -xbox.getY(Hand.kLeft);
+  public double RT = xbox.getTriggerAxis(Hand.kRight);
+  public double LT = xbox.getTriggerAxis(Hand.kLeft);
 
   public OI()
   {

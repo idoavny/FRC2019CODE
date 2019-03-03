@@ -9,6 +9,7 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Solenoids;
 import frc.robot.commands.delay;
 
@@ -17,6 +18,8 @@ public class HatchIntake extends CommandGroup {
    * Add your docs here.
    */
   public HatchIntake(int mode) {
+     boolean PistonState = false;
+
     if(mode == 1){
       addSequential(new Solenoids(2, true));
       addSequential(new delay(0.3));
@@ -25,7 +28,7 @@ public class HatchIntake extends CommandGroup {
        addSequential(new Solenoids(2, false));
        addSequential(new delay(0.3));
        addSequential(new Solenoids(1, false));
-
+      PistonState= true;
     }
     if(mode == 2){
       addSequential(new Solenoids(1, true));
@@ -34,12 +37,10 @@ public class HatchIntake extends CommandGroup {
       addSequential(new delay(0.3));
       addSequential(new Solenoids(1, false));
       addSequential(new delay(0.3));
-      
       addSequential(new Solenoids(2, false));
-
-
-
+      PistonState = true;
     }
+    SmartDashboard.putBoolean("Pistons State", PistonState);
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());

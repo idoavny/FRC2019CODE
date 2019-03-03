@@ -21,10 +21,12 @@ import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.CommandGroups.HatchIntake;
 import frc.robot.RobotMap.HatchPanel;
 import frc.robot.commands.AutonomusCommand;
 import frc.robot.commands.ElevatorEncoderReset;
@@ -57,10 +59,10 @@ public double kp ;
   public Preferences pref;
   public Compressor comp;
   public static DigitalInput LimitSwitch;
-    public static DigitalInput LimitSwitch2;
-    public static boolean intakeFlag = false;
-    public static Hatch hatch;
-
+  public static DigitalInput LimitSwitch2;
+  public static boolean intakeFlag = false;
+  public static Hatch hatch;
+  public static HatchIntake hatchintake;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -94,9 +96,11 @@ public double kp ;
   public void robotPeriodic()
   {
     
-   
-    SmartDashboard.putNumber("Pov", Robot.m_oi.ButtonJoy.getPOV());
+    //SmartDashboard.putNumber("Y value", m_oi.xbox.getY(Hand.kLeft));
+    //SmartDashboard.putNumber("RT", m_oi.xbox.get);
+    SmartDashboard.putNumber("LT", m_oi.LT);
 
+    SmartDashboard.putNumber("Pov", Robot.m_oi.ButtonJoy.getPOV());
     SmartDashboard.putBoolean("LimitSwitch", !Robot.elevator.LimitSwitch.get());
     SmartDashboard.putBoolean("LimitSwitch2", Robot.elevator.LimitSwitch2.get());
     SmartDashboard.putData("EncoderReset", new ElevatorEncoderReset());
