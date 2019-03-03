@@ -15,6 +15,7 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class PID extends Command {
+  public double Elast = 0;
   public boolean isReverse;
   private boolean Auto;
   private double E;
@@ -27,6 +28,7 @@ public class PID extends Command {
   private String mode;  
   private int level;
   public int count;
+  public double D;
 
   private static int previousPov = 0;
   
@@ -80,6 +82,7 @@ public class PID extends Command {
     }
     P = Constants.PIDconstants.P.Value();
     I = Constants.PIDconstants.I.Value();
+    D = Constants.PIDconstants.D.Value();
   }
   
   @Override
@@ -89,9 +92,10 @@ public class PID extends Command {
       CurrentPosition = Robot.elevator.EncoderPulses();
       E = (CurrentPosition-SetPoint)/8000;
       SumE = SumE + E;
-      M = P*E + SumE*I;
+      M = P*E + SumE*I + D*((Elast - E)/0.02);
       
       Robot.elevator.SetSpeed(-M);
+
       }
     else{
       double speed;

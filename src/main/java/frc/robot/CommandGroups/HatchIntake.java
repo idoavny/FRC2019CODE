@@ -25,16 +25,15 @@ public class HatchIntake extends CommandGroup {
        addSequential(new Solenoids(2, false));
        addSequential(new delay(0.3));
        addSequential(new Solenoids(1, false));
-
     }
+
     if(mode == 2){
       addSequential(new Solenoids(1, true));
       addSequential(new delay(0.6));
       addSequential(new Solenoids(2, true));
       addSequential(new delay(0.3));
       addSequential(new Solenoids(1, false));
-      addSequential(new delay(0.3));
-      
+      addSequential(new delay(0.3));  
       addSequential(new Solenoids(2, false));
 
 
