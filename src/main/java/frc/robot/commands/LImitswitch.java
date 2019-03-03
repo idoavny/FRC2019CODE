@@ -20,33 +20,31 @@ public class LImitswitch extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    while(Robot.elevator.limitSwitch() == false && Robot.elevator.limitSwitch2() == false){
-      Robot.elevator.SetSpeed(-0.2);
-    }
-    Robot.elevator.SetSpeed(0);
+  
   }
-
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    while(Robot.elevator.limitSwitch() == false){
-      Robot.elevator.SetSpeed(-0.2);
+    double speed = -0.6;
+      Robot.elevator.SetSpeed(speed);
     }
-    while(Robot.elevator.limitSwitch()){
-      Robot.elevator.SetSpeed(0.2);
-      Robot.elevator.EncoderReset();
-    }
-  }
+    
+  
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    boolean isfinished = false;
+    if(!Robot.elevator.limitSwitch()  && Robot.elevator.limitSwitch2()){
+      isfinished = true;
+    }
+    return isfinished;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.elevator.SetSpeed(0);
   }
 
   // Called when another command which requires one or more of the same

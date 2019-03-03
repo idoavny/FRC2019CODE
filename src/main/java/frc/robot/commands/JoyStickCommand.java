@@ -7,26 +7,61 @@
 
 package frc.robot.commands;
 
-
-
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class JoyStickCommand extends Command {
-  //comment
+  private boolean isPressed;
+  private String mode;
+  private double RightSpeed;
+  private double leftSpeed;
+
   public JoyStickCommand() {
     requires(Robot.drive);
-  }
+  } 
+public JoyStickCommand(double speed){
+  Robot.drive.setTankSpeed(speed, speed);
+}
+  public JoyStickCommand(String mode) {
+    this.mode = mode;
+  } 
 
-@Override
-protected void initialize() {
-
+  @Override
+  protected void initialize() {
+    isPressed = false;
   }
 
   @Override
   protected void execute() {
-    Robot.drive.setTankSpeed(-Robot.m_oi.rightJoy.getY(), Robot.m_oi.leftJoy.getY());
+
+   // Robot.drive.setTankSpeed((1-Robot.m_oi.RT)*Robot.m_oi.,(1-1-Robot.m_oi.LT)*-Robot.m_oi.speed);
+    
+    leftSpeed = Robot.m_oi.leftJoy.getY();
+    RightSpeed = Robot.m_oi.rightJoy.getY();
+
+    if(Robot.m_oi.rightJoy.getRawButtonPressed(13) || Robot.m_oi.rightJoy.getRawButtonPressed(2)){
+      isPressed = !isPressed;
+    }
+    if(isPressed){
+      Robot.drive.setTankSpeed(leftSpeed, -RightSpeed);
+      if(mode == "Slow"){
+        Robot.drive.setTankSpeed(leftSpeed*0.5, -RightSpeed*0.5);
+      }
+    }
+    else{
+      Robot.drive.setTankSpeed(-RightSpeed, leftSpeed);
+      if(mode == "Slow"){
+        Robot.drive.setTankSpeed(RightSpeed*0.5, -leftSpeed*0.5);
+      }
+    }
+
+    SmartDashboard.putNumber("RightSpeed", RightSpeed);
+    SmartDashboard.putNumber("LefttSpeed", leftSpeed);
+  
   }
+    
+
 
   @Override
   protected boolean isFinished() {

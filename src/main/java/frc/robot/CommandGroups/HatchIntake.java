@@ -7,33 +7,40 @@
 
 package frc.robot.CommandGroups;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
-import frc.robot.commands.PID;
+import frc.robot.commands.Solenoids;
 import frc.robot.commands.delay;
 
-public class Elevetor extends CommandGroup {
+public class HatchIntake extends CommandGroup {
+  /**
+   * Add your docs here.
+   */
+  public HatchIntake(int mode) {
+     boolean PistonState = false;
 
-  public Elevetor(String upOrDown) {
-    double setPoint = Robot.elevator.EncoderPulses();
-    
-      switch(upOrDown){
-        case "up":
-        ++setPoint;
-        
-        break;
-        case "down":
-        setPoint = 1000;
-       // --setPoint;
-        break;
-      }
-      addParallel(new PID("ball", 0, false, false, setPoint));
-
-      addParallel(new delay(0.3));
-      SmartDashboard.putNumber("SetPoint", setPoint);
+    if(mode == 1){
+      addSequential(new Solenoids(2, true));
+      addSequential(new delay(0.3));
+       addSequential(new Solenoids(1, true));
+       addSequential(new delay(0.6));
+       addSequential(new Solenoids(2, false));
+       addSequential(new delay(0.3));
+       addSequential(new Solenoids(1, false));
+      PistonState= true;
     }
-
+    if(mode == 2){
+      addSequential(new Solenoids(1, true));
+      addSequential(new delay(0.6));
+      addSequential(new Solenoids(2, true));
+      addSequential(new delay(0.3));
+      addSequential(new Solenoids(1, false));
+      addSequential(new delay(0.3));
+      addSequential(new Solenoids(2, false));
+      PistonState = true;
+    }
+    SmartDashboard.putBoolean("Pistons State", PistonState);
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -50,4 +57,5 @@ public class Elevetor extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
+  }
 }

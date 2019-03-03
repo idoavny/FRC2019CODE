@@ -16,13 +16,18 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.CommandGroups.HatchIntake;
+import frc.robot.RobotMap.HatchPanel;
 import frc.robot.commands.AutonomusCommand;
 import frc.robot.commands.ElevatorEncoderReset;
 import frc.robot.commands.PID;
@@ -30,12 +35,13 @@ import frc.robot.subsystems.Autonomus;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Fork;
-import frc.robot.subsystems.HatchPanel;
+import frc.robot.subsystems.Hatch;
 import frc.robot.subsystems.Maglol;
 //testing branches
 public class Robot extends TimedRobot 
 {
-  public double kp ;
+  public static PID pid;
+public double kp ;
   public double ki;
   public double kd;
   public double downKp;
@@ -52,16 +58,19 @@ public class Robot extends TimedRobot
   public static Elevator elevator;
   public Preferences pref;
   public Compressor comp;
-  public static HatchPanel hatchPanel;
-
+  public static DigitalInput LimitSwitch;
+  public static DigitalInput LimitSwitch2;
+  public static boolean intakeFlag = false;
+  public static Hatch hatch;
+  public static HatchIntake hatchintake;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   @Override
   public void robotInit() 
   {
+  
     UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-    hatchPanel = new HatchPanel();
     camera.setFPS(30);
     comp = new Compressor();
     comp.setClosedLoopControl(true);
@@ -70,8 +79,13 @@ public class Robot extends TimedRobot
     fork = new Fork();
     maglol = new Maglol();
     elevator  = new Elevator();
+    pid = new PID();
+    hatch = new Hatch();
+
     // CameraServer.getInstance().startAutomaticCapture();
     m_oi = new OI();
+    Robot.elevator.EncoderReset();
+
 
     m_chooser.setDefaultOption("Default Auto", new AutonomusCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
@@ -81,16 +95,22 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic()
   {
+    
+    //SmartDashboard.putNumber("Y value", m_oi.xbox.getY(Hand.kLeft));
+    //SmartDashboard.putNumber("RT", m_oi.xbox.get);
+    SmartDashboard.putNumber("LT", m_oi.LT);
+
+    SmartDashboard.putNumber("Pov", Robot.m_oi.ButtonJoy.getPOV());
+    SmartDashboard.putBoolean("LimitSwitch", !Robot.elevator.LimitSwitch.get());
+    SmartDashboard.putBoolean("LimitSwitch2", Robot.elevator.LimitSwitch2.get());
     SmartDashboard.putData("EncoderReset", new ElevatorEncoderReset());
-    SmartDashboard.putBoolean("LimitSwitche", Robot.elevator.limitSwitch());
-    SmartDashboard.putBoolean("LimitSwitche2", Robot.elevator.limitSwitch2());
     SmartDashboard.putNumber("ElevatorEncoder", Robot.elevator.enc.get());
   }
 
   @Override
   public void disabledInit()
   {
-
+    Robot.pid.count = 0;
   }
 
   @Override
