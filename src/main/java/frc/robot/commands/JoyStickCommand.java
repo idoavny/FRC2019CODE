@@ -41,7 +41,7 @@ public JoyStickCommand(double speed){
     if(Robot.m_oi.rightJoy.getRawButtonPressed(13) || Robot.m_oi.rightJoy.getRawButtonPressed(2)){
       isPressed = !isPressed;
     }
-    if(isPressed){
+    if(isPressed == false){
       Robot.drive.setTankSpeed(-RightSpeed, leftSpeed);
       if(mode == "Slow"){
         Robot.drive.setTankSpeed(RightSpeed*0.5, -leftSpeed*0.5);
@@ -53,9 +53,7 @@ public JoyStickCommand(double speed){
         Robot.drive.setTankSpeed(-leftSpeed*0.5, RightSpeed*0.5);
       }
     }
-
-    SmartDashboard.putNumber("RightSpeed", RightSpeed);
-    SmartDashboard.putNumber("LefttSpeed", leftSpeed);
+    SmartDashboard.putBoolean("Reverse", isPressed);
   }
     
 

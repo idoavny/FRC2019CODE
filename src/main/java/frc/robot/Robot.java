@@ -95,8 +95,6 @@ public double kp ;
   {
     
    
-    SmartDashboard.putNumber("Pov", Robot.m_oi.ButtonJoy.getPOV());
-
     SmartDashboard.putBoolean("LimitSwitch", !Robot.elevator.LimitSwitch.get());
     SmartDashboard.putBoolean("LimitSwitch2", Robot.elevator.LimitSwitch2.get());
     SmartDashboard.putData("EncoderReset", new ElevatorEncoderReset());

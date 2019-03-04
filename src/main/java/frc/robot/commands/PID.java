@@ -52,11 +52,11 @@ public class PID extends Command {
       {
 
         case 1:
-        SetPoint = 1950;
+        SetPoint = 2100;
         break;
 
         case 2:
-        SetPoint = 6050;
+        SetPoint = 6200;
         break;
   
         case 3:
@@ -76,7 +76,7 @@ public class PID extends Command {
         break;
   
         case 3:
-        SetPoint = 8000;
+        SetPoint = 8800;
         break;
       }
     }
