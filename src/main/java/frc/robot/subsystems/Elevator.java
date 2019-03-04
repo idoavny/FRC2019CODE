@@ -25,7 +25,7 @@ public class Elevator extends Subsystem
   private double ki;
   private double kd;
 
-  public Encoder enc = new Encoder(8, 9, false, EncodingType.k1X);
+  public Encoder enc = new Encoder(4, 5, false, EncodingType.k1X);
   public  PIDController pid  = new PIDController(kp, ki, kd, enc, (speed) -> SetSpeed(speed));
 
   public VictorSPX RightMotor = new VictorSPX(RobotMap.Elevator.ElevatorRight.getValue());

@@ -22,8 +22,8 @@ public class PickShoot extends CommandGroup {
   public PickShoot(int Mode, double Timer){
     switch(Mode){
       case 0:
-      addParallel(new MaglolCommand(true, 0.25, true));
-      addParallel(new ForkCommad(true, true, 1));
+      addParallel(new MaglolCommand(true, 0.3, true));
+      addParallel(new ForkCommad(true, true, 0.7));
       addParallel(new ForkCommad(false, false, 0.6));
       break;
       

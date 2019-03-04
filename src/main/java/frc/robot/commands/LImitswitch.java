@@ -43,7 +43,8 @@ public class LImitswitch extends Command {
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
+  protected void end(){
+    Robot.elevator.EncoderReset();
     Robot.elevator.SetSpeed(0);
   }
 

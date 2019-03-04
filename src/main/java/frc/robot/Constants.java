@@ -28,8 +28,9 @@ public static double MagSpeedinterrapted = 0;
      } 
 // Elevator command constants:
 public enum PIDconstants{
-    P(9),
-    I(0.1);
+    P(10),
+    I(0.005),
+    D(0.00);
 
     private double value;
     PIDconstants(double value){

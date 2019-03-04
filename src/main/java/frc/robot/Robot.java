@@ -96,11 +96,6 @@ public double kp ;
   public void robotPeriodic()
   {
     
-    //SmartDashboard.putNumber("Y value", m_oi.xbox.getY(Hand.kLeft));
-    //SmartDashboard.putNumber("RT", m_oi.xbox.get);
-    SmartDashboard.putNumber("LT", m_oi.LT);
-
-    SmartDashboard.putNumber("Pov", Robot.m_oi.ButtonJoy.getPOV());
     SmartDashboard.putBoolean("LimitSwitch", !Robot.elevator.LimitSwitch.get());
     SmartDashboard.putBoolean("LimitSwitch2", Robot.elevator.LimitSwitch2.get());
     SmartDashboard.putData("EncoderReset", new ElevatorEncoderReset());
