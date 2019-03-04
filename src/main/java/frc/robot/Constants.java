@@ -30,7 +30,7 @@ public static double MagSpeedinterrapted = 0;
 public enum PIDconstants{
     P(10),
     I(0.005),
-    D(0.0);
+    D(0.00);
 
     private double value;
     PIDconstants(double value){
