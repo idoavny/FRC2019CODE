@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
@@ -26,7 +25,7 @@ import frc.robot.commands.PID;
 public class OI 
 {
   //              JoySticks
-  XboxController xbox = new XboxController(0);
+  XboxController xbox = new XboxController(2);
   public Joystick rightJoy = new Joystick(0);
   public Joystick leftJoy = new Joystick(1);
   public Joystick ButtonJoy = new Joystick(2);
@@ -74,6 +73,7 @@ public class OI
   public Button OpenForkPiston = new JoystickButton(ButtonJoy, 3);
   public Button CloseForkPiston = new JoystickButton(ButtonJoy, 4);
 
+
   public OI()
   {
     elevatorUp1.whileHeld(new PID("Ball",0  ,false, false));
@@ -98,16 +98,6 @@ public class OI
     
     OpenForkPiston.toggleWhenPressed(new HatchIntake(1));
     CloseForkPiston.toggleWhenPressed(new HatchIntake(2));
-
-
-    //OpenForkPiston.toggleWhenPressed(new hatchCommand(1,true));
-    //CloseForkPiston.toggleWhenPressed(new hatchCommand(2,true));
   }
-    
-    //CloseForkPiston.whenPressed(new HatchHook("outtake"));
 
-
-
-  //fork1.toggleWhenPressed(new ForkCommad("pick"));
-  //fork2.toggleWhenPressed(new ForkCommad("release"));
   }
