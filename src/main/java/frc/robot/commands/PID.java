@@ -59,9 +59,9 @@ public class PID extends Command {
         SetPoint = 6200;
         break;
   
-        case 3:
+       /* case 3:
         SetPoint = 8800;
-        break;
+        break;*/
      
       }
       break;
@@ -74,12 +74,26 @@ public class PID extends Command {
         case 2:
         SetPoint = 3859;
         break;
-  
+        /*
         case 3:
         SetPoint = 8800;
+        break;*/
+      }
+      break;
+      case "Feeder":
+      switch(level){
+        case 1:
+        SetPoint = 1500;
+        break;
+    }
+      break;
+      case "Cargo":
+      switch(level){
+        case 1:
+        SetPoint = 1500;
         break;
       }
-    }
+  }
     P = Constants.PIDconstants.P.Value();
     I = Constants.PIDconstants.I.Value();
     D = Constants.PIDconstants.D.Value();
@@ -93,9 +107,7 @@ public class PID extends Command {
       E = (CurrentPosition-SetPoint)/8000;
       SumE = SumE + E;
       M = P*E + SumE*I + D*((Elast - E)/0.02);
-      
       Robot.elevator.SetSpeed(-M);
-
       }
     else{
       double speed;
@@ -112,22 +124,8 @@ public class PID extends Command {
       Robot.elevator.EncoderReset();
       if(speed < 0){
         Robot.elevator.SetSpeed(0);
-
       }
-      }
-      
-      
-     
-    
-    SmartDashboard.putNumber("Elevator Count",count);
-   /* if(!Robot.elevator.limitSwitch() && Robot.elevator.limitSwitch2())
-    {
-      count = 0;
-      Robot.elevator.EncoderReset();
-      if(isReverse){
-        Robot.elevator.SetSpeed(0);
-      }
-    }*/
+  }
   }
 }
   

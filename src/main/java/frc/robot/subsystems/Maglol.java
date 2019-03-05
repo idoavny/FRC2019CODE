@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
@@ -28,7 +29,7 @@ public class Maglol extends Subsystem
 {
   //AnalogInput AI = new AnalogInput(RobotMap.Maglol.AnalogIn.getValue());  //TODO: put real analog input channel
   Potentiometer pot = new AnalogPotentiometer(0, 360, 71.7);//TODO: put real values
-
+  private DigitalInput ElevatorlimitSwitch = new DigitalInput(RobotMap.Maglol.MAGLOL_LIMITSWITCH.getValue());
   private TalonSRX pickMotor = new TalonSRX(RobotMap.Maglol.MAG_PICK.getValue());
   private Talon LefttMotor = new Talon(RobotMap.Maglol.MAGLOL_RIGHT_ROATION.getValue());
   private Talon RightMotor = new Talon(RobotMap.Maglol.MAGLOL_LEFT_ROATION.getValue());
@@ -37,6 +38,10 @@ public class Maglol extends Subsystem
   {
     pickMotor.setInverted(isReverse);
     pickMotor.set(ControlMode.PercentOutput, speed);
+  }
+
+  public boolean LimitSwitchGet(){
+    return ElevatorlimitSwitch.get();
   }
 
   public double PotentiometerValue(){

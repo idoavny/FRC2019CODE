@@ -42,7 +42,7 @@ public class RobotMap {
    }
       //              Maglol
    public enum Maglol{
-      //AnalogIn(6),
+      MAGLOL_LIMITSWITCH(6),
       MAG_PICK(11),
       MAG_ROTATE(9),
       MAGLOL_MOTOR(10),

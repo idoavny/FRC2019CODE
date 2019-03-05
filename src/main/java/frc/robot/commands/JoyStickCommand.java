@@ -13,7 +13,6 @@ import frc.robot.Robot;
 
 public class JoyStickCommand extends Command {
   private boolean isPressed;
-  private String mode;
   private double RightSpeed;
   private double leftSpeed;
 
@@ -23,9 +22,6 @@ public class JoyStickCommand extends Command {
 public JoyStickCommand(double speed){
   Robot.drive.setTankSpeed(speed, speed);
 }
-  public JoyStickCommand(String mode) {
-    this.mode = mode;
-  } 
 
   @Override
   protected void initialize() {
@@ -45,15 +41,9 @@ public JoyStickCommand(double speed){
     }
     if(isPressed == false){
       Robot.drive.setTankSpeed(-RightSpeed, leftSpeed);
-      if(mode == "Slow"){
-        Robot.drive.setTankSpeed(leftSpeed*0.5, -RightSpeed*0.5);
-      }
     }
     else{
       Robot.drive.setTankSpeed(-RightSpeed, leftSpeed);
-      if(mode == "Slow"){
-        Robot.drive.setTankSpeed(RightSpeed*0.5, -leftSpeed*0.5);
-      }
     }
     SmartDashboard.putBoolean("Reverse", isPressed);
   }
@@ -67,7 +57,6 @@ public JoyStickCommand(double speed){
 
   @Override
   protected void end() {
-
   }
 
   @Override

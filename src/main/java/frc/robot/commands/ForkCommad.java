@@ -17,9 +17,7 @@ public class ForkCommad extends Command {
   private boolean Shoot;
   private double speed;
   private boolean isReverse;
-  private boolean solenoidCommandMode;
-  private boolean mode;
-  private int solenoidNum;
+
 
 
 

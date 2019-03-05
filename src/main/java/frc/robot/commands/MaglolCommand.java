@@ -46,10 +46,12 @@ public class MaglolCommand extends Command
     if(Pick){
       Robot.maglol.setPickSpeed(speed, isReverse);
     }
+    if(Robot.maglol.LimitSwitchGet() && Robot.m_oi.ButtonJoy.getY() < 0){
+      Robot.maglol.setSpeed(0.0);
+      Robot.maglol.setPickSpeed(0.0, false);     
+    }
     Robot.maglol.setSpeed(-Robot.m_oi.ButtonJoy.getY()*0.5);
-     
     
-
   }
 
   @Override
