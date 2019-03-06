@@ -10,6 +10,7 @@ package frc.robot;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.cscore.VideoSink;
 import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
@@ -63,14 +64,19 @@ public double kp ;
   public static boolean intakeFlag = false;
   public static Hatch hatch;
   public static HatchIntake hatchintake;
+  public boolean prevTrigger;
+  UsbCamera camera;
+  UsbCamera camera2;
+  VideoSink server;
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   @Override
   public void robotInit() 
   {
-  
-    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+    camera2 = CameraServer.getInstance().startAutomaticCapture(1);
+    camera = CameraServer.getInstance().startAutomaticCapture(0);
+    server = CameraServer.getInstance().getServer();
     camera.setFPS(30);
     comp = new Compressor();
     comp.setClosedLoopControl(true);
@@ -137,12 +143,20 @@ public double kp ;
     {
       m_autonomousCommand.cancel();
     }
+  prevTrigger = false;
   }
 
   @Override
   public void teleopPeriodic() 
   {
     Scheduler.getInstance().run();
+    prevTrigger = m_oi.leftJoy.getRawButton(1);
+    if(m_oi.leftJoy.getRawButton(1) && prevTrigger){
+      server.setSource(camera2);
+      
+    }else if(!m_oi.leftJoy.getRawButton(1) && !prevTrigger){
+      server.setSource(camera);
+    }
   }
 
   @Override

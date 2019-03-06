@@ -74,16 +74,16 @@ public class PID extends Command {
         case 2:
         SetPoint = 3859;
         break;
-        /*
+        
         case 3:
         SetPoint = 8800;
-        break;*/
+        break;
       }
       break;
       case "Feeder":
       switch(level){
         case 1:
-        SetPoint = 1500;
+        SetPoint = 4000;
         break;
     }
       break;

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.CommandGroups.BallFeederIntake;
 import frc.robot.CommandGroups.HatchIntake;
 import frc.robot.CommandGroups.PickShoot;
 import frc.robot.commands.ElevatorEncoderReset;
@@ -45,6 +46,7 @@ public class OI
 
 
   //              Elevator buttons
+  
   POVButton elevatorUp1 = new POVButton(ButtonJoy, 0);
   POVButton elevatorUp2 = new POVButton(ButtonJoy, 45);
   POVButton elevatorUp3 = new POVButton(ButtonJoy, 315);
@@ -69,7 +71,7 @@ public class OI
   public Button MaglolButton2 = new JoystickButton(ButtonJoy, 14);
 
   //              Fork Buttons
-
+  Button FeederIntake = new JoystickButton(leftJoy, 2);
   public Button OpenForkPiston = new JoystickButton(ButtonJoy, 3);
   public Button CloseForkPiston = new JoystickButton(ButtonJoy, 4);
 
@@ -85,7 +87,8 @@ public class OI
     
     elevatorBallPID0.toggleWhenActive(new PID("Ball",1, true,false));
     elevatorBallPID1.toggleWhenActive(new PID("Ball",2, true, false));
-    elevatorBallPID2.toggleWhenActive(new PID("Ball",3, true, false));
+    elevatorBallPID2.toggleWhenActive(new PID("Feeder",1,true,false));
+    //elevatorBallPID2.toggleWhenActive(new PID("Ball",3, true, false));
     elevatorHatchPID.toggleWhenActive(new PID("Hatch",3, true, false));
     elevatorHatchPID1.toggleWhenActive(new PID("Hatch",2, true, false));
     elevatorHatchPID2.toggleWhenActive(new LImitswitch());
@@ -98,6 +101,7 @@ public class OI
     
     OpenForkPiston.toggleWhenPressed(new HatchIntake(1));
     CloseForkPiston.toggleWhenPressed(new HatchIntake(2));
+    FeederIntake.whileHeld(new BallFeederIntake());
   }
 
   }
