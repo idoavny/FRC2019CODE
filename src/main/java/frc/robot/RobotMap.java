@@ -44,8 +44,6 @@ public class RobotMap {
    public enum Maglol{
       MAGLOL_LIMITSWITCH(6),
       MAG_PICK(11),
-      MAG_ROTATE(9),
-      MAGLOL_MOTOR(10),
       MAGLOL_RIGHT_ROATION(3), 
       MAGLOL_LEFT_ROATION(4);
 
@@ -61,7 +59,6 @@ public class RobotMap {
    public enum Fork{
       HPsolonoid1(3),
       HPsolonoid2(2),
-      Shooter_Motor(13),
       HPmotor1(2),
       HPmotor2(0),
       HPmotor3(1);
@@ -80,8 +77,10 @@ public class RobotMap {
       //              Elevator
       ElevatorRight(42),
       ElevatorLeft(19),
-      ELEVATOR_LIMIT_SWITCH(6),
-      ELEVATOR_LIMIT_SWITCH2(0);
+      LimitSwitch1(7),
+      LimitSwitch2(0);
+      
+      
       private int value;
       Elevator(int value){
          this.value = value;

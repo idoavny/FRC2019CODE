@@ -31,8 +31,8 @@ public class Elevator extends Subsystem
   public VictorSPX RightMotor = new VictorSPX(RobotMap.Elevator.ElevatorRight.getValue());
   public VictorSPX LeftMotor = new VictorSPX(RobotMap.Elevator.ElevatorLeft.getValue());
 
-  public DigitalInput LimitSwitch = new DigitalInput(7);
-  public DigitalInput LimitSwitch2 = new DigitalInput(0);
+  public DigitalInput LimitSwitch = new DigitalInput(RobotMap.Elevator.LimitSwitch1.getValue());
+  public DigitalInput LimitSwitch2 = new DigitalInput(RobotMap.Elevator.LimitSwitch2.getValue());
 
   public Elevator()
   {

@@ -101,7 +101,8 @@ public double kp ;
   @Override
   public void robotPeriodic()
   {
-    
+    SmartDashboard.putNumber("RightJoy", Robot.m_oi.rightJoy.getY());
+    SmartDashboard.putNumber("Leftjoy", Robot.m_oi.leftJoy.getY());
     SmartDashboard.putBoolean("LimitSwitch", !Robot.elevator.LimitSwitch.get());
     SmartDashboard.putBoolean("LimitSwitch2", Robot.elevator.LimitSwitch2.get());
     SmartDashboard.putData("EncoderReset", new ElevatorEncoderReset());
@@ -150,14 +151,17 @@ public double kp ;
   public void teleopPeriodic() 
   {
     Scheduler.getInstance().run();
-    prevTrigger = m_oi.leftJoy.getRawButton(1);
-    if(m_oi.leftJoy.getRawButton(1) && prevTrigger){
+    if(m_oi.leftJoy.getTrigger()){
+      prevTrigger = !prevTrigger;
+    }
+    if(!prevTrigger){
       server.setSource(camera2);
-      
-    }else if(!m_oi.leftJoy.getRawButton(1) && !prevTrigger){
+    }
+    else{
       server.setSource(camera);
     }
   }
+
 
   @Override
   public void testPeriodic() 

@@ -35,15 +35,20 @@ public JoyStickCommand(double speed){
     
     leftSpeed = Robot.m_oi.leftJoy.getY();
     RightSpeed = Robot.m_oi.rightJoy.getY();
-
+    if(Robot.m_oi.rightJoy.getY() > -0.1 && Robot.m_oi.rightJoy.getY() < 0.1){
+      RightSpeed = 0;
+    }
+    if(Robot.m_oi.leftJoy.getY() > -0.1 && Robot.m_oi.leftJoy.getY() < 0.1){
+      leftSpeed = 0;
+    }
     if(Robot.m_oi.rightJoy.getRawButtonPressed(13) || Robot.m_oi.rightJoy.getRawButtonPressed(2)){
       isPressed = !isPressed;
     }
-    if(isPressed == false){
+    if(!isPressed){
       Robot.drive.setTankSpeed(-RightSpeed, leftSpeed);
     }
     else{
-      Robot.drive.setTankSpeed(-RightSpeed, leftSpeed);
+      Robot.drive.setTankSpeed(leftSpeed, -RightSpeed);
     }
     SmartDashboard.putBoolean("Reverse", isPressed);
   }

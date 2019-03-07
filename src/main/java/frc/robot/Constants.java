@@ -16,7 +16,7 @@ public static double MagSpeedinterrapted = 0;
     public static double ShooterSpeed = 0.5;
     // fork command constants:
     public enum Fork{
-        forklimitswitch(30);
+        forklimitswitch(25);
     
         private double value;
         Fork(double value){
