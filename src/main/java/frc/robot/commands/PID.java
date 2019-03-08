@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,7 +29,6 @@ public class PID extends Command {
   public int count;
   public double D;
 
-  private static int previousPov = 0;
   
   public PID() {
     requires(Robot.elevator);
@@ -83,7 +81,7 @@ public class PID extends Command {
       case "Feeder":
       switch(level){
         case 1:
-        SetPoint = 4000;
+        SetPoint = 4400;
         break;
     }
       break;

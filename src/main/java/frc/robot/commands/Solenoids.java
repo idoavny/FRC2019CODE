@@ -16,16 +16,25 @@ import frc.robot.Robot;
 public class Solenoids extends InstantCommand {
   int Solenoid;
   boolean mode;
-  /**
-   * Add your docs here.
-   */
+  
+  public Solenoids() {
+    super();
+    requires(Robot.hatch);
+
+  }
   public Solenoids(int Solenoid, boolean mode) {
     super();
     this.Solenoid = Solenoid;
     this.mode = mode;
     requires(Robot.hatch);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+  }
+  public Solenoids(Boolean disable) {
+    super();
+    requires(Robot.hatch);
+    //if(disable){Robot.hatch.setSolenoid1(false);
+     // Robot.hatch.setSolenoid2(false);}
+    
+
   }
 
   // Called once when the command executes

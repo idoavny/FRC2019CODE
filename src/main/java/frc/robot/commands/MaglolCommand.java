@@ -15,10 +15,10 @@ public class MaglolCommand extends Command
   private double speed;
   private boolean Pick;
   private boolean isReverse;
-  private double DesiredAngle;
-  private double currentAngle;
-  private boolean toAngle;
-  private boolean isPressed;
+ // private double DesiredAngle;
+  //private double currentAngle;
+  //private boolean toAngle;
+  //private boolean isPressed;
   public MaglolCommand() 
   {
     requires(Robot.maglol);
@@ -29,10 +29,10 @@ public class MaglolCommand extends Command
     this.isReverse = isReverse;
     this.speed = speed;
   }
-  public MaglolCommand(double DesiredAngle, boolean toAngle){
+ /* public MaglolCommand(double DesiredAngle, boolean toAngle){
     this.DesiredAngle = DesiredAngle;
     this.toAngle = toAngle;
-  }
+  }*/
 
   @Override
   protected void initialize() 

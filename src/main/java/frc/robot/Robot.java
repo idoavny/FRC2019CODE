@@ -11,24 +11,17 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSink;
-import edu.wpi.cscore.VideoMode.PixelFormat;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CommandGroups.HatchIntake;
-import frc.robot.RobotMap.HatchPanel;
 import frc.robot.commands.AutonomusCommand;
 import frc.robot.commands.ElevatorEncoderReset;
 import frc.robot.commands.PID;
@@ -58,7 +51,7 @@ public double kp ;
   public AHRS navxTesting;
   public static Elevator elevator;
   public Preferences pref;
-  public Compressor comp;
+  public static Compressor comp;
   public static DigitalInput LimitSwitch;
   public static DigitalInput LimitSwitch2;
   public static boolean intakeFlag = false;
@@ -74,6 +67,7 @@ public double kp ;
   @Override
   public void robotInit() 
   {
+    
     camera2 = CameraServer.getInstance().startAutomaticCapture(1);
     camera = CameraServer.getInstance().startAutomaticCapture(0);
     server = CameraServer.getInstance().getServer();
@@ -101,7 +95,8 @@ public double kp ;
   @Override
   public void robotPeriodic()
   {
-    SmartDashboard.putNumber("RightJoy", Robot.m_oi.rightJoy.getY());
+    SmartDashboard.putNumber("Potentiometer",Robot.maglol.PotentiometerValue());
+    SmartDashboard.putBoolean("RightJoy", Robot.m_oi.rightJoy.getRawButton(2));
     SmartDashboard.putNumber("Leftjoy", Robot.m_oi.leftJoy.getY());
     SmartDashboard.putBoolean("LimitSwitch", !Robot.elevator.LimitSwitch.get());
     SmartDashboard.putBoolean("LimitSwitch2", Robot.elevator.LimitSwitch2.get());
@@ -144,7 +139,8 @@ public double kp ;
     {
       m_autonomousCommand.cancel();
     }
-  prevTrigger = false;
+    SmartDashboard.putBoolean("Low Pressure", comp.getPressureSwitchValue());
+      prevTrigger = false;
   }
 
   @Override
@@ -155,10 +151,10 @@ public double kp ;
       prevTrigger = !prevTrigger;
     }
     if(!prevTrigger){
-      server.setSource(camera2);
+      server.setSource(camera);
     }
     else{
-      server.setSource(camera);
+      server.setSource(camera2);
     }
   }
 

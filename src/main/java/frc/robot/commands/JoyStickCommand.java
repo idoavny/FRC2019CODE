@@ -41,7 +41,7 @@ public JoyStickCommand(double speed){
     if(Robot.m_oi.leftJoy.getY() > -0.1 && Robot.m_oi.leftJoy.getY() < 0.1){
       leftSpeed = 0;
     }
-    if(Robot.m_oi.rightJoy.getRawButtonPressed(13) || Robot.m_oi.rightJoy.getRawButtonPressed(2)){
+    if(Robot.m_oi.rightJoy.getRawButtonPressed(3)){
       isPressed = !isPressed;
     }
     if(!isPressed){

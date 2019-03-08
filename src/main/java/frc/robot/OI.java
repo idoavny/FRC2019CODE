@@ -22,6 +22,7 @@ import frc.robot.commands.LImitswitch;
 //import frc.robot.commands.LImitswitch;
 import frc.robot.commands.MaglolCommand;
 import frc.robot.commands.PID;
+import frc.robot.commands.Solenoids;
 
 public class OI 
 {
@@ -35,6 +36,9 @@ public class OI
   public double getRightPov(){
     return rightJoy.getPOV();
   }
+  //              DriveButton
+ // Button CompressorControl = new JoystickButton(, buttonNumber);
+
 
   //              Shotter buttons
   Button ShooterButton = new JoystickButton(leftJoy, 2);
@@ -74,10 +78,11 @@ public class OI
   Button FeederIntake = new JoystickButton(leftJoy, 2);
   public Button OpenForkPiston = new JoystickButton(ButtonJoy, 3);
   public Button CloseForkPiston = new JoystickButton(ButtonJoy, 4);
-
+//public Button closeSolenoids = new JoystickButton(rightJoy, 4);
 
   public OI()
   {
+   // closeSolenoids.toggleWhenPressed(new Solenoids(true));
     elevatorUp1.whileHeld(new PID("Ball",0  ,false, false));
     elevatorUp2.whileHeld(new PID("Ball",0 , false, false));
     elevatorUp3.whileHeld(new PID("Ball", 0, false, false));
