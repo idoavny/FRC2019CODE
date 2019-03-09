@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.POVButton;
@@ -27,7 +28,7 @@ import frc.robot.commands.Solenoids;
 public class OI 
 {
   //              JoySticks
-  XboxController xbox = new XboxController(2);
+  public XboxController xbox = new XboxController(2);
   public Joystick rightJoy = new Joystick(0);
   public Joystick leftJoy = new Joystick(1);
   public Joystick ButtonJoy = new Joystick(2);
@@ -36,9 +37,7 @@ public class OI
   public double getRightPov(){
     return rightJoy.getPOV();
   }
-  //              DriveButton
- // Button CompressorControl = new JoystickButton(, buttonNumber);
-
+  //              XboxButtons
 
   //              Shotter buttons
   Button ShooterButton = new JoystickButton(leftJoy, 2);
@@ -82,6 +81,17 @@ public class OI
 
   public OI()
   {
+    SmartDashboard.putBoolean("A", xbox.getAButton());
+    SmartDashboard.putBoolean("X", xbox.getXButton());
+    SmartDashboard.putBoolean("B", xbox.getBButton());
+    SmartDashboard.putBoolean("Y", xbox.getYButton());
+    SmartDashboard.putBoolean("BumperRight", xbox.getBumper(Hand.kRight));
+    SmartDashboard.putBoolean("BumperLeft", xbox.getBumper(Hand.kLeft));
+    SmartDashboard.putNumber("GetTriggerLeft", xbox.getTriggerAxis(Hand.kLeft));
+    SmartDashboard.putNumber("GetTriggerRight", xbox.getTriggerAxis(Hand.kRight));
+    SmartDashboard.putNumber("getRightY", xbox.getY(Hand.kRight));
+    SmartDashboard.putNumber("getLefttY", xbox.getY(Hand.kLeft));
+
    // closeSolenoids.toggleWhenPressed(new Solenoids(true));
     elevatorUp1.whileHeld(new PID("Ball",0  ,false, false));
     elevatorUp2.whileHeld(new PID("Ball",0 , false, false));
