@@ -33,14 +33,15 @@ public JoyStickCommand(double speed){
 
    // Robot.drive.setTankSpeed((1-Robot.m_oi.RT)*Robot.m_oi.,(1-1-Robot.m_oi.LT)*-Robot.m_oi.speed);
     
-    leftSpeed = Robot.m_oi.leftJoy.getY();
-    RightSpeed = Robot.m_oi.rightJoy.getY();
+   leftSpeed = Robot.m_oi.leftJoy.getY();
+   RightSpeed = Robot.m_oi.rightJoy.getY();
     if(Robot.m_oi.rightJoy.getY() > -0.1 && Robot.m_oi.rightJoy.getY() < 0.1){
       RightSpeed = 0;
     }
     if(Robot.m_oi.leftJoy.getY() > -0.1 && Robot.m_oi.leftJoy.getY() < 0.1){
       leftSpeed = 0;
     }
+
     if(Robot.m_oi.rightJoy.getRawButtonPressed(3)){
       isPressed = !isPressed;
     }
