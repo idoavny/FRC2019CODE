@@ -40,4 +40,17 @@ public enum PIDconstants{
         return value;
     }
  } 
+ public enum MaglolPID{
+    P(10),
+    I(0.02),
+    D(0.00);
+
+    private double value;
+    MaglolPID(double value){
+        this.value = value;
+    }
+    public double Value(){
+        return value;
+    }
+ }
 }

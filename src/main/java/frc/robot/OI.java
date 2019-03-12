@@ -14,7 +14,9 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CommandGroups.BallFeederIntake;
 import frc.robot.CommandGroups.HatchIntake;
+import frc.robot.CommandGroups.MaglolAutomation;
 import frc.robot.CommandGroups.PickShoot;
+import frc.robot.CommandGroups.pidmaglol;
 import frc.robot.commands.ElevatorEncoderReset;
 import frc.robot.commands.ForkCommad;
 import frc.robot.commands.LImitswitch;
@@ -23,9 +25,11 @@ import frc.robot.commands.LImitswitch;
 import frc.robot.commands.MaglolCommand;
 import frc.robot.commands.PID;
 import frc.robot.commands.Solenoids;
+import frc.robot.commands.maglolPick;
 
 public class OI 
 {
+
   //              JoySticks
   XboxController xbox = new XboxController(2);
   public Joystick rightJoy = new Joystick(0);
@@ -76,6 +80,7 @@ public class OI
 
   //              Fork Buttons
   Button FeederIntake = new JoystickButton(leftJoy, 2);
+  Button HalfShoot = new JoystickButton(rightJoy, 2);
   public Button OpenForkPiston = new JoystickButton(ButtonJoy, 3);
   public Button CloseForkPiston = new JoystickButton(ButtonJoy, 4);
 //public Button closeSolenoids = new JoystickButton(rightJoy, 4);
@@ -83,30 +88,33 @@ public class OI
   public OI()
   {
    // closeSolenoids.toggleWhenPressed(new Solenoids(true));
-    elevatorUp1.whileHeld(new PID("Ball",0  ,false, false));
-    elevatorUp2.whileHeld(new PID("Ball",0 , false, false));
-    elevatorUp3.whileHeld(new PID("Ball", 0, false, false));
-    elevatorDown1.whileHeld(new PID("Ball",0,  false, true));
-    elevatorDown2.whileHeld(new PID("Ball",0,  false, true));
-    elevatorDown3.whileHeld(new PID("Ball",0,  false, true));
+    elevatorUp1.whileHeld(new PID("Ball",0  ,false, false,false));
+    elevatorUp2.whileHeld(new PID("Ball",0 , false, false,false));
+    elevatorUp3.whileHeld(new PID("Ball", 0, false, false,false));
+    elevatorDown1.whileHeld(new PID("Ball",0,  false, true,false));
+    elevatorDown2.whileHeld(new PID("Ball",0,  false, true,false));
+    elevatorDown3.whileHeld(new PID("Ball",0,  false, true,false));
     
-    elevatorBallPID0.toggleWhenActive(new PID("Ball",1, true,false));
-    elevatorBallPID1.toggleWhenActive(new PID("Ball",2, true, false));
-    elevatorBallPID2.toggleWhenActive(new PID("Feeder",1,true,false));
+    //elevatorBallPID0.toggleWhenActive(new pidmaglol("Ball", 2));
+    
+    elevatorBallPID0.toggleWhenActive(new PID("Ball",1, true,false,false));
+    elevatorBallPID1.toggleWhenActive(new PID("Ball",2, true, false,false));
+    elevatorBallPID2.toggleWhenActive(new PID("Feeder",1,true,false,false));
     //elevatorBallPID2.toggleWhenActive(new PID("Ball",3, true, false));
-    elevatorHatchPID.toggleWhenActive(new PID("Hatch",3, true, false));
-    elevatorHatchPID1.toggleWhenActive(new PID("Hatch",2, true, false));
+    elevatorHatchPID.toggleWhenActive(new PID("Hatch",3, true, false,false));
+    elevatorHatchPID1.toggleWhenActive(new PID("Hatch",2, true, false,false));
     elevatorHatchPID2.toggleWhenActive(new LImitswitch());
 
-    forkButton.whileHeld(new PickShoot(0, 0.5));
     forkButton2.whileHeld(new PickShoot(1, 0.5));
+    forkButton.whileHeld(new PickShoot(0, 0.5));
 
-    MaglolButton1.whileHeld(new MaglolCommand(false, 0.5, true));
-    MaglolButton2.whileHeld(new MaglolCommand(false, 0.5, false));
+    HalfShoot.whileHeld(new PickShoot(2, 0.5));
     
     OpenForkPiston.toggleWhenPressed(new HatchIntake(1));
     CloseForkPiston.toggleWhenPressed(new HatchIntake(2));
     FeederIntake.whileHeld(new BallFeederIntake());
+
+
   }
 
   }

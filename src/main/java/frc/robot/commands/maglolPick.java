@@ -10,49 +10,42 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class LImitswitch extends Command {
-  public LImitswitch() {
-    requires(Robot.elevator);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class maglolPick extends Command {
+ private double speed;
+ private boolean isReverse;
+  public maglolPick(double speed, boolean isReverse) {
+    this.speed = speed;
+    this.isReverse = isReverse;
+    requires(Robot.maglol);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-  
   }
+
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double speed = -0.6;
-      Robot.elevator.SetSpeed(speed);
-    }
-    
-  
+    Robot.maglol.setPickSpeed(speed, isReverse);
+  }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    boolean isfinished = false;
-    if(Robot.elevator.limitSwitch()  && Robot.elevator.limitSwitch2()){
-      Robot.elevator.EncoderReset();
-      isfinished = true;
-    }
-    return isfinished;
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
-  protected void end(){
-    Robot.elevator.EncoderReset();
-    Robot.elevator.SetSpeed(0);
+  protected void end() {
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.elevator.SetSpeed(0);
+    Robot.maglol.setPickSpeed(0.0, false);
+
   }
 }

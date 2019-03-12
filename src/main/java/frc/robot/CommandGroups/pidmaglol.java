@@ -9,13 +9,22 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
-import frc.robot.commands.ForkCommad;
+import frc.robot.commands.MaglolCommand;
+import frc.robot.commands.PID;
 
-public class BallFeederIntake extends CommandGroup {
-  
-  public BallFeederIntake() {
-    requires(Robot.fork);
-    addParallel(new ForkCommad(true, false, 1));
-    addParallel(new ForkCommad(false, false, 0.6));
+public class pidmaglol extends CommandGroup {
+  /**
+   * Add your docs here.
+   */
+  public pidmaglol(String Mode, int level) {
+    if(Robot.currentangle < 234 && Robot.currentangle > 230){
+      addSequential(new PID(Mode, level, true, false, true));
+      addSequential(new MaglolCommand(1, true, true));
+      addParallel(new PID(Mode, level, true, false, false));
+    }else{
+      addParallel(new PID(Mode, level, true, false, false));
+
+    }
+
   }
 }

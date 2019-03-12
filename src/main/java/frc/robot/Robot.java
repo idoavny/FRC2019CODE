@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.cscore.UsbCamera;
@@ -22,8 +23,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CommandGroups.HatchIntake;
+import frc.robot.CommandGroups.MaglolAutomation;
 import frc.robot.commands.AutonomusCommand;
 import frc.robot.commands.ElevatorEncoderReset;
+import frc.robot.commands.MaglolCommand;
 import frc.robot.commands.PID;
 import frc.robot.subsystems.Autonomus;
 import frc.robot.subsystems.DriveTrain;
@@ -58,47 +61,70 @@ public double kp ;
   public static Hatch hatch;
   public static HatchIntake hatchintake;
   public boolean prevTrigger;
+  public static MaglolCommand maglolCommand;
+  public static double currentangle;
+  public static 
   UsbCamera camera;
   UsbCamera camera2;
   VideoSink server;
+  VideoSink server2;
+
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   @Override
   public void robotInit() 
   {
-    
+   
     camera2 = CameraServer.getInstance().startAutomaticCapture(1);
     camera = CameraServer.getInstance().startAutomaticCapture(0);
+
     server = CameraServer.getInstance().getServer();
-    camera.setFPS(30);
     comp = new Compressor();
     comp.setClosedLoopControl(true);
     navxTesting = new AHRS(SPI.Port.kMXP);
     drive = new DriveTrain();
     fork = new Fork();
     maglol = new Maglol();
+    maglolCommand = new MaglolCommand();
+
     elevator  = new Elevator();
     pid = new PID();
     hatch = new Hatch();
 
     // CameraServer.getInstance().startAutomaticCapture();
     m_oi = new OI();
-    Robot.elevator.EncoderReset();
+    elevator.EncoderReset();
+    hatch.solenoid1.clearAllPCMStickyFaults();
+    hatch.solenoid2.clearAllPCMStickyFaults();
 
 
     m_chooser.setDefaultOption("Default Auto", new AutonomusCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+    comp.clearAllPCMStickyFaults();
   }
 
   @Override
   public void robotPeriodic()
   {
-    SmartDashboard.putNumber("Potentiometer",Robot.maglol.PotentiometerValue());
+    //maglol.setPickSpeed(0.9, true);
+  SmartDashboard.putNumber("PickValue", maglol.pickMotor.getMotorOutputPercent());
+   currentangle = maglol.PotentiometerValue();
+     // if(m_oi.ButtonJoy.getY() < -0.7){
+      //MaglolCommand maglolcommand = new MaglolCommand(1, false, true);
+      //maglolcommand.start();
+     // }
+  /* if(m_oi.ButtonJoy.getY() > 0.7){
+      MaglolCommand maglolcommand = new MaglolCommand(2, true, true);
+      maglolcommand.start();
+    }*/
+    SmartDashboard.putNumber("currentAngle",maglol.PotentiometerValue());
+
+    //SmartDashboard.putNumber("Potentiometer",Robot.maglol.PotentiometerValue());
     SmartDashboard.putBoolean("RightJoy", Robot.m_oi.rightJoy.getRawButton(2));
     SmartDashboard.putNumber("Leftjoy", Robot.m_oi.leftJoy.getY());
-    SmartDashboard.putBoolean("LimitSwitch", !Robot.elevator.LimitSwitch.get());
+    SmartDashboard.putBoolean("LimitSwitch", Robot.elevator.LimitSwitch.get());
     SmartDashboard.putBoolean("LimitSwitch2", Robot.elevator.LimitSwitch2.get());
     SmartDashboard.putData("EncoderReset", new ElevatorEncoderReset());
     SmartDashboard.putNumber("ElevatorEncoder", Robot.elevator.enc.get());
@@ -151,6 +177,7 @@ public double kp ;
       prevTrigger = !prevTrigger;
     }
     if(!prevTrigger){
+      
       server.setSource(camera);
     }
     else{

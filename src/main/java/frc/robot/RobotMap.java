@@ -43,7 +43,7 @@ public class RobotMap {
       //              Maglol
    public enum Maglol{
       MAGLOL_LIMITSWITCH(6),
-      MAG_PICK(11),
+      MAG_PICK(24),
       MAGLOL_RIGHT_ROATION(3), 
       MAGLOL_LEFT_ROATION(4);
 

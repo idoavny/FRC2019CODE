@@ -28,16 +28,22 @@ import frc.robot.commands.MaglolCommand;
 public class Maglol extends Subsystem 
 {
   //AnalogInput AI = new AnalogInput(RobotMap.Maglol.AnalogIn.getValue());  //TODO: put real analog input channel
-  Potentiometer pot = new AnalogPotentiometer(0, 360, 71.7);//TODO: put real values
+  Potentiometer pot = new AnalogPotentiometer(0, 360, 0);//TODO: put real values
   private DigitalInput ElevatorlimitSwitch = new DigitalInput(RobotMap.Maglol.MAGLOL_LIMITSWITCH.getValue());
-  private TalonSRX pickMotor = new TalonSRX(RobotMap.Maglol.MAG_PICK.getValue());
+  public TalonSRX pickMotor = new TalonSRX(RobotMap.Maglol.MAG_PICK.getValue());
   private Talon LefttMotor = new Talon(RobotMap.Maglol.MAGLOL_RIGHT_ROATION.getValue());
   private Talon RightMotor = new Talon(RobotMap.Maglol.MAGLOL_LEFT_ROATION.getValue());
  
   public void setPickSpeed(Double speed,boolean isReverse)
   {
-    pickMotor.setInverted(isReverse);
-    pickMotor.set(ControlMode.PercentOutput, speed);
+    if(isReverse){
+      pickMotor.set(ControlMode.PercentOutput, speed);
+
+    }
+    else{
+      pickMotor.set(ControlMode.PercentOutput, -speed);
+
+    }
   }
 
   public boolean LimitSwitchGet(){
@@ -64,6 +70,6 @@ public class Maglol extends Subsystem
   @Override
   public void initDefaultCommand() 
   {
-    setDefaultCommand(new MaglolCommand());
+    setDefaultCommand(new MaglolCommand(1, false, false));
   }
 }
